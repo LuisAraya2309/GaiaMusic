@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/loginStyle.css') }}">
+
+</head>
+
+    <body>
+
+        <p> Inicio de Sesión </p>
+
+
+        <form action = "/signIn">
+            Usuario: <input type="text" id="user" name="user" required=""><br>
+            Contraseña: <input type="password" id="password" name="password" required=""><br>
+
+            <input type="submit" value="Inicio de Sesión">
+
+        </form>
+
+
+        <form action = "/signUp">
+            <input type="submit" value="Registrarse">
+        </form>
+
+
+    </body>
+
+</html>
