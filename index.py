@@ -14,16 +14,16 @@ def login():
 
 @app.route('/signIn',methods=['GET','POST'])
 def validateUser():
-    user = request.form['user']
-    password = request.form['password']
+    user = request.form.get('user')
+    password = request.form.get('password')
     dbConnection = connectToDatabase()
     try:
         with dbConnection.cursor() as cursor:
-            query = 'EXEC sp_SignIn ? , ?'
-            cursor.execute(query,(user,password))
+            query = 'EXEC sp_SignIn ? , ? , ?'
+            cursor.execute(query,(user,password,0))
             queryResult = cursor.fetchall()
-            validUser = queryResult[0]
-            userType = queryResult[1]
+            validUser = queryResult[0][0]
+            userType = queryResult[0][1]
             userPages = {1:'customer.html',2:'admin.html',3:'supplier.html'}
             if validUser != 1:
                 return render_template(userPages[userType])
@@ -31,7 +31,8 @@ def validateUser():
                 return 'Usuario y contraseña inválidos. <a href="/">Intente de nuevo.</a>'        
 
     except Exception as e:
-        return 'Usuario y contraseña inválidos. <a href="/">Intente de nuevo.</a>'
+        print(e)
+        return str(e) + 'Exception error. <a href="/">Intente de nuevo.</a>'
     
     finally:
         dbConnection.close()

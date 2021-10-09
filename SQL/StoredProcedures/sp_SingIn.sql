@@ -29,7 +29,7 @@ BEGIN
 				
 			END
 
-		SELECT @OutResultCode AS OutResultCode;
+		SELECT @OutResultCode AS OutResultCode , (SELECT U.IdUserType FROM dbo.Users AS U WHERE U.Username = @inUsername) AS UserType;
 
 	END TRY
 	BEGIN CATCH
@@ -54,6 +54,6 @@ END
 GO
 
 /*
-EXECUTE sp_SignIn 'Sebasdo01182' , 'sebasElCrack000' , 0
+EXECUTE sp_SignIn 'Jorgito' , 'Macroi' , 0
 DROP PROCEDURE sp_SignIn
 */
