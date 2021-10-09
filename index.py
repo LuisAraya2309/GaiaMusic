@@ -14,8 +14,8 @@ def login():
 
 @app.route('/signIn',methods=['GET','POST'])
 def validateUser():
-    user = request.form.get('user')
-    password = request.form.get('password')
+    user = request.form['user']
+    password = request.form['password']
     dbConnection = connectToDatabase()
     try:
         with dbConnection.cursor() as cursor:
@@ -24,6 +24,7 @@ def validateUser():
             queryResult = cursor.fetchall()
             validUser = queryResult[0][0]
             userType = queryResult[0][1]
+            
             userPages = {1:'customer.html',2:'admin.html',3:'supplier.html'}
             if validUser != 1:
                 return render_template(userPages[userType])
