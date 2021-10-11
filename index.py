@@ -38,12 +38,35 @@ def validateUser():
     finally:
         dbConnection.close()
 
+@app.route('/beginSignUp',methods=['GET','POST'])
+def beginSignUp():
+    return render_template('signUp.html')
+
 
 @app.route('/signUp',methods=['GET','POST'])
 def signUp():
-    print('Aca va el registro de usuario')
+    name = request.form['name']
+    lastnames = request.form['lastname']
+    user = request.form['user']
+    password = request.form['password']
+    dbConnection = connectToDatabase()
+    try:
+        with dbConnection.cursor() as cursor:
+            query = 'EXEC sp_SignUp ? , ? , ? , ? , ? , ?'
+            cursor.execute(query,(name,lastnames,user,password,'Customer',0))
+            queryResult = cursor.fetchall()
+            validUser = queryResult[0][0]
+            if validUser != 1:
+                return render_template('login.html')
+            else:
+                return 'Usuario y contraseña inválidos. <a href="/">Intente de nuevo.</a>'        
 
-
+    except Exception as e:
+        print(e)
+        return str(e) + 'Exception error. <a href="/">Intente de nuevo.</a>'
+    
+    finally:
+        dbConnection.close()
 
 
 #Run application
