@@ -1,0 +1,332 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  font-size: 14px;
+}
+.v794_89 {
+  width: 100%;
+  height: 757px;
+  background: rgba(255,255,255,1);
+  opacity: 1;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  overflow: hidden;
+}
+.v794_90 {
+  width: 100%;
+  height: 757px;
+  background: rgba(33,35,41,1);
+  opacity: 1;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  overflow: hidden;
+}
+.v794_91 {
+  width: 256px;
+  color: rgba(97,218,251,1);
+  position: absolute;
+  top: 130px;
+  left: 200px;
+  font-family: Inter;
+  font-weight: Semi Bold;
+  font-size: 48px;
+  opacity: 1;
+  text-align: left;
+}
+.v794_92 {
+  width: 463px;
+  color: rgba(255,255,255,1);
+  position: absolute;
+  top: 319px;
+  left: 84px;
+  font-family: Inter;
+  font-weight: Semi Bold;
+  font-size: 24px;
+  opacity: 1;
+  text-align: left;
+}
+.v794_93 {
+  width: 769px;
+  height: 757px;
+  background: rgba(216,216,216,1);
+  opacity: 1;
+  position: absolute;
+  top: 0px;
+  left: 659px;
+  overflow: hidden;
+}
+.v794_94 {
+  width: 665px;
+  height: 707px;
+  background: rgba(216,216,216,1);
+  opacity: 1;
+  position: absolute;
+  top: 37px;
+  left: 724px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  overflow: hidden;
+}
+.v794_95 {
+  width: 166px;
+  color: rgba(0,0,0,1);
+  position: absolute;
+  top: 162px;
+  left: 753px;
+  font-family: Inter;
+  font-weight: Semi Bold;
+  font-size: 18px;
+  opacity: 1;
+  text-align: left;
+}
+.v794_96 {
+  width: 102px;
+  color: rgba(0,0,0,1);
+  position: absolute;
+  top: 272px;
+  left: 755px;
+  font-family: Inter;
+  font-weight: Semi Bold;
+  font-size: 18px;
+  opacity: 1;
+  text-align: left;
+}
+.v794_110 {
+  width: 156px;
+  color: rgba(0,0,0,1);
+  position: absolute;
+  top: 391px;
+  left: 755px;
+  font-family: Inter;
+  font-weight: Semi Bold;
+  font-size: 18px;
+  opacity: 1;
+  text-align: left;
+}
+.v794_112 {
+  width: 83px;
+  color: rgba(0,0,0,1);
+  position: absolute;
+  top: 501px;
+  left: 753px;
+  font-family: Inter;
+  font-weight: Semi Bold;
+  font-size: 18px;
+  opacity: 1;
+  text-align: left;
+}
+.v794_97 {
+  width: 377px;
+  color: rgba(0,0,0,1);
+  position: absolute;
+  top: 95px;
+  left: 755px;
+  font-family: Inter;
+  font-weight: Semi Bold;
+  font-size: 36px;
+  opacity: 1;
+  text-align: left;
+}
+.v794_98 {
+  width: 152px;
+  color: rgba(152,152,158,1);
+  position: absolute;
+  top: 48px;
+  left: 755px;
+  font-family: Inter;
+  font-weight: Semi Bold;
+  font-size: 24px;
+  opacity: 1;
+  text-align: left;
+}
+.v794_101 {
+  width: 209px;
+  color: rgba(255,255,255,1);
+  position: absolute;
+  top: 661px;
+  left: 72px;
+  font-family: Inter;
+  font-weight: Semi Bold;
+  font-size: 18px;
+  opacity: 1;
+  text-align: left;
+}
+.v794_102 {
+  width: 42px;
+  height: 41px;
+  background: url("instagram.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  opacity: 1;
+  position: absolute;
+  top: 688px;
+  left: 759px;
+  overflow: hidden;
+}
+.v794_103 {
+  width: 46px;
+  height: 54px;
+  background: url("facebook.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  opacity: 1;
+  position: absolute;
+  top: 682px;
+  left: 802px;
+  overflow: hidden;
+}
+.v794_104 {
+  width: 34px;
+  height: 41px;
+  background: url("twitter.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  opacity: 1;
+  position: absolute;
+  top: 688px;
+  left: 849px;
+  overflow: hidden;
+}
+
+.v794_106 {
+  width: 384px;
+  height: 52px;
+  background: rgba(216,216,216,1);
+  opacity: 1;
+  position: absolute;
+  top: 314px;
+  left: 766px;
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+  overflow: hidden;
+}
+
+.v794_109 {
+  width: 140px;
+  height: 141px;
+  background: url("Gaia.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  opacity: 1;
+  position: absolute;
+  top: 78px;
+  left: 60px;
+  overflow: hidden;
+}
+
+
+.Rectangle{
+  position: absolute;
+  width: 665px;
+  height: 707px;
+  left: 724px;
+  top: 37px;
+  
+  background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #D8D8D8;
+  border-radius: 15px;
+}
+
+.inputNomUsuario{
+  font-family: Inter;
+  font-weight: Semi Bold;
+  font-size: 16px;
+  width: 384px;
+  height: 52px;
+  background: rgba(216,216,216,1);
+  opacity: 1;
+  position: absolute;
+  top: 200px;
+  left: 766px;
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+  overflow: hidden;
+}
+
+.inputContraUsuario{
+  font-family: Inter;
+  font-weight: Semi Bold;
+  font-size: 16px;
+  width: 384px;
+  height: 52px;
+  background: rgba(216,216,216,1);
+  opacity: 1;
+  position: absolute;
+  top: 314px;
+  left: 766px;
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+  overflow: hidden;
+}
+
+.inputNomCompleto{
+  font-family: Inter;
+  font-weight: Semi Bold;
+  font-size: 16px;
+  width: 384px;
+  height: 52px;
+  background: rgba(216,216,216,1);
+  opacity: 1;
+  position: absolute;
+  top: 431px;
+  left: 766px;
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+  overflow: hidden;
+}
+
+.inputDireccion{
+  font-family: Inter;
+  font-weight: Semi Bold;
+  font-size: 16px;
+  width: 384px;
+  height: 52px;
+  background: rgba(216,216,216,1);
+  opacity: 1;
+  position: absolute;
+  top: 534px;
+  left: 766px;
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+  overflow: hidden;
+}
+
+.inputCrearCuenta {
+  width: 384px;
+  height: 59px;
+  background: rgba(48,131,254,1);
+  opacity: 1;
+  position: absolute;
+  top: 623px;
+  left: 766px;
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+  overflow: hidden;
+  color: rgba(255,255,255,1);
+  position: absolute;
+  font-family: Inter;
+  font-weight: Semi Bold;
+  font-size: 24px;
+  opacity: 1;
+  text-align: center;
+}
