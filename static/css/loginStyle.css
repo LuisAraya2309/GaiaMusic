@@ -9,3 +9,8 @@ body,html{
     background: url(/static/images/login.jpg) no-repeat center center fixed;
     background-size: 100% 100%;
 }
+
+form{
+    background-color: transparent;
+    opacity: 20.0;
+}
