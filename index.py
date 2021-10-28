@@ -46,14 +46,14 @@ def beginSignUp():
 @app.route('/signUp',methods=['GET','POST'])
 def signUp():
     name = request.form['name']
-    lastnames = request.form['lastname']
+    address = request.form['address']
     user = request.form['user']
     password = request.form['password']
     dbConnection = connectToDatabase()
     try:
         with dbConnection.cursor() as cursor:
             query = 'EXEC sp_SignUp ? , ? , ? , ? , ? , ?'
-            cursor.execute(query,(name,lastnames,user,password,'Customer',0))
+            cursor.execute(query,(name,address,user,password,'Customer',0))
             queryResult = cursor.fetchall()
             validUser = queryResult[0][0]
             if validUser != 1:

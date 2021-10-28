@@ -6,20 +6,20 @@ body {
 }
 .v794_89 {
   width: 100%;
-  height: 757px;
-  background: rgba(255,255,255,1);
+  height: 980px;
+  background: rgba(33,35,41,1);
   opacity: 1;
-  position: absolute;
+  position: relative;
   top: 0px;
   left: 0px;
   overflow: hidden;
 }
 .v794_90 {
   width: 100%;
-  height: 757px;
+  height: 980px;
   background: rgba(33,35,41,1);
   opacity: 1;
-  position: absolute;
+  position: relative;
   top: 0px;
   left: 0px;
   overflow: hidden;
@@ -54,8 +54,8 @@ body {
   background: rgba(216,216,216,1);
   opacity: 1;
   position: absolute;
-  top: 0px;
-  left: 659px;
+  top: 130px;
+  left: 731px;
   overflow: hidden;
 }
 .v794_94 {
@@ -64,8 +64,8 @@ body {
   background: rgba(216,216,216,1);
   opacity: 1;
   position: absolute;
-  top: 37px;
-  left: 724px;
+  top: 155px;
+  left: 783px;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   border-bottom-left-radius: 15px;
@@ -76,8 +76,8 @@ body {
   width: 166px;
   color: rgba(0,0,0,1);
   position: absolute;
-  top: 162px;
-  left: 753px;
+  top: 283px;
+  left: 936px;
   font-family: Inter;
   font-weight: Semi Bold;
   font-size: 18px;
@@ -88,8 +88,8 @@ body {
   width: 102px;
   color: rgba(0,0,0,1);
   position: absolute;
-  top: 272px;
-  left: 755px;
+  top: 384px;
+  left: 936px;
   font-family: Inter;
   font-weight: Semi Bold;
   font-size: 18px;
@@ -100,8 +100,8 @@ body {
   width: 156px;
   color: rgba(0,0,0,1);
   position: absolute;
-  top: 391px;
-  left: 755px;
+  top: 479px;
+  left: 936px;
   font-family: Inter;
   font-weight: Semi Bold;
   font-size: 18px;
@@ -112,8 +112,8 @@ body {
   width: 83px;
   color: rgba(0,0,0,1);
   position: absolute;
-  top: 501px;
-  left: 753px;
+  top: 578px;
+  left: 936px;
   font-family: Inter;
   font-weight: Semi Bold;
   font-size: 18px;
@@ -124,8 +124,8 @@ body {
   width: 377px;
   color: rgba(0,0,0,1);
   position: absolute;
-  top: 95px;
-  left: 755px;
+  top: 219px;
+  left: 927px;
   font-family: Inter;
   font-weight: Semi Bold;
   font-size: 36px;
@@ -136,8 +136,8 @@ body {
   width: 152px;
   color: rgba(152,152,158,1);
   position: absolute;
-  top: 48px;
-  left: 755px;
+  top: 169px;
+  left: 927px;
   font-family: Inter;
   font-weight: Semi Bold;
   font-size: 24px;
@@ -148,7 +148,7 @@ body {
   width: 209px;
   color: rgba(255,255,255,1);
   position: absolute;
-  top: 661px;
+  top: 884px;
   left: 72px;
   font-family: Inter;
   font-weight: Semi Bold;
@@ -165,8 +165,8 @@ body {
   background-size: cover;
   opacity: 1;
   position: absolute;
-  top: 688px;
-  left: 759px;
+  top: 798px;
+  left: 812px;
   overflow: hidden;
 }
 .v794_103 {
@@ -178,8 +178,8 @@ body {
   background-size: cover;
   opacity: 1;
   position: absolute;
-  top: 682px;
-  left: 802px;
+  top: 792px;
+  left: 860px;
   overflow: hidden;
 }
 .v794_104 {
@@ -191,26 +191,87 @@ body {
   background-size: cover;
   opacity: 1;
   position: absolute;
-  top: 688px;
-  left: 849px;
+  top: 798px;
+  left: 919px;
   overflow: hidden;
 }
-
+.v794_105 {
+  width: 384px;
+  height: 59px;
+  background: rgba(48,131,254,1);
+  opacity: 1;
+  position: absolute;
+  top: 718px;
+  left: 927px;
+}
 .v794_106 {
   width: 384px;
   height: 52px;
   background: rgba(216,216,216,1);
   opacity: 1;
   position: absolute;
-  top: 314px;
-  left: 766px;
+  top: 417px;
+  left: 923px;
   border-top-left-radius: 50px;
   border-top-right-radius: 50px;
   border-bottom-left-radius: 50px;
   border-bottom-right-radius: 50px;
   overflow: hidden;
 }
-
+.v794_111 {
+  width: 384px;
+  height: 52px;
+  background: rgba(216,216,216,1);
+  opacity: 1;
+  position: absolute;
+  top: 516px;
+  left: 923px;
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+  overflow: hidden;
+}
+.v794_113 {
+  width: 384px;
+  height: 52px;
+  background: rgba(216,216,216,1);
+  opacity: 1;
+  position: absolute;
+  top: 615px;
+  left: 927px;
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+  overflow: hidden;
+}
+.v794_107 {
+  width: 384px;
+  height: 52px;
+  background: rgba(216,216,216,1);
+  opacity: 1;
+  position: absolute;
+  top: 320px;
+  left: 919px;
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+  overflow: hidden;
+}
+.v794_108 {
+  width: 186px;
+  color: rgba(255,255,255,1);
+  position: absolute;
+  top: 728px;
+  left: 1041px;
+  font-family: Inter;
+  font-weight: Semi Bold;
+  font-size: 24px;
+  opacity: 1;
+  text-align: left;
+}
 .v794_109 {
   width: 140px;
   height: 141px;
@@ -224,14 +285,26 @@ body {
   left: 60px;
   overflow: hidden;
 }
-
+.v840_110 {
+  width: 642px;
+  height: 407px;
+  background: url("instrumentos.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  opacity: 1;
+  position: absolute;
+  top: 455px;
+  left: 10px;
+  overflow: hidden;
+}
 
 .Rectangle{
   position: absolute;
   width: 665px;
   height: 707px;
-  left: 724px;
-  top: 37px;
+  left: 783px;
+  top: 155px;
   
   background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #D8D8D8;
   border-radius: 15px;
@@ -246,8 +319,8 @@ body {
   background: rgba(216,216,216,1);
   opacity: 1;
   position: absolute;
-  top: 200px;
-  left: 766px;
+  top: 320;
+  left: 919;
   border-top-left-radius: 50px;
   border-top-right-radius: 50px;
   border-bottom-left-radius: 50px;
@@ -264,8 +337,8 @@ body {
   background: rgba(216,216,216,1);
   opacity: 1;
   position: absolute;
-  top: 314px;
-  left: 766px;
+  top: 417px;
+  left: 923px;
   border-top-left-radius: 50px;
   border-top-right-radius: 50px;
   border-bottom-left-radius: 50px;
@@ -282,8 +355,8 @@ body {
   background: rgba(216,216,216,1);
   opacity: 1;
   position: absolute;
-  top: 431px;
-  left: 766px;
+  top: 516px;
+  left: 923px;
   border-top-left-radius: 50px;
   border-top-right-radius: 50px;
   border-bottom-left-radius: 50px;
@@ -300,8 +373,8 @@ body {
   background: rgba(216,216,216,1);
   opacity: 1;
   position: absolute;
-  top: 534px;
-  left: 766px;
+  top: 615px;
+  left: 923px;
   border-top-left-radius: 50px;
   border-top-right-radius: 50px;
   border-bottom-left-radius: 50px;
@@ -315,8 +388,8 @@ body {
   background: rgba(48,131,254,1);
   opacity: 1;
   position: absolute;
-  top: 623px;
-  left: 766px;
+  top: 718px;
+  left: 923px;
   border-top-left-radius: 50px;
   border-top-right-radius: 50px;
   border-bottom-left-radius: 50px;
@@ -329,4 +402,11 @@ body {
   font-size: 24px;
   opacity: 1;
   text-align: center;
+}
+
+form{
+  width: 769px;
+  height: 757px;
+  top: 130px;
+  left: 731px;
 }

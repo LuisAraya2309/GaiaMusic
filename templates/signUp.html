@@ -1,26 +1,47 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="utf-8">
-  <title>Login</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/loginStyle.css') }}">
-
-</head>
-
+<html>
+    <head>
+        <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet" />
+        <link href="{{ url_for('static',filename='css/signUp.css') }}" rel="stylesheet" />
+        <title>Registro</title>
+    </head>
     <body>
+        <div class="v794_89">
+            <div class="v794_90">
+                <span class="v794_91">Gaia Music </span>
+                <span class="v794_92">→ ¡Calidad asegurada de instrumentos! 
+                → ¡Envíos hasta su casa! 
+                <br>→ ¡Los mejores precios!</span>
+                <div class="v794_93"></div>
+                <div class="v794_94"></div>
+                <div class = "v840_110"></div>
+               
+               
+                <span class="v794_101">Pneuma Developers S.A
+                @2021</span>
+               
 
-        <p> ¡Registrate para que seas parte de la comunidad de clientes!</p>
+                <form method = "post" action = "/signUp">
+                    <div class = "Rectangle"></div> 
+                    <span class="v794_95">Nombre de usuario</span>
+                    <span class="v794_96">Contraseña</span>
+                    <span class="v794_110">Nombre completo</span>
+                    <span class="v794_112">Dirección</span>
+                    <span class="v794_97">Únete a la comunidad</span>
+                    <span class="v794_98">¡Bienvenido!</span>
+                    <input class = "inputContraUsuario" type = "password" id = "password" name = "password" required = ""></input>
+                    <input class = "inputNomUsuario" id = "user" name= "user" required = ""></input>
+                    <input class = "inputNomCompleto" id = "name" name="name" required = ""></input>
+                    <input class = "inputDireccion" id = "address" name="address" required = ""></input>
+                    <input class = "inputCrearCuenta" type = "submit" value = "Crear cuenta"></input>
+                    <div class="v794_102"></div>
+                    <div class="v794_103"></div>
+                    <div class="v794_104"></div>
+                </form>
+                
 
-
-        <form action = "/signUp" method ="post">
-            Nombre: <input type="text" id="name" name="name" required=""><br>
-            Apellidos: <input type="text" id="lastname" name="lastname" required=""><br>
-            Nombre de usuario: <input type="text" id="user" name="user" required=""><br>
-            Contraseña: <input type="password" id="password" name="password" required=""><br>
-            <input type="submit" value="Registrarse">
-
-        </form>
+                <div class="v794_109"></div>
+            </div>
+        </div>
     </body>
-
 </html>
