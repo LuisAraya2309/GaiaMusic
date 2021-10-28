@@ -29,7 +29,7 @@ def validateUser():
             if validUser != 1:
                 return render_template(userPages[userType])
             else:
-                return 'Usuario y contraseña inválidos. <a href="/">Intente de nuevo.</a>'        
+                return "<script>alert('Usuario y/o Contraseña inválidos');window.location.href = '/';</script>" 
 
     except Exception as e:
         print(e)
@@ -59,7 +59,7 @@ def signUp():
             if validUser != 1:
                 return render_template('login.html')
             else:
-                return 'Usuario y contraseña inválidos. <a href="/">Intente de nuevo.</a>'        
+                return "<script>window.location = '/'; alert('Usuario y/o contraseña inválidos.'); </script> " 
 
     except Exception as e:
         print(e)

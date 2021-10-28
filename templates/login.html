@@ -1,33 +1,39 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="utf-8">
-  <title>Login</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/loginStyle.css') }}">
-
-</head>
-
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet" />
+        <title>Document</title>
+        <link href= "{{ url_for('static',filename='css/login.css') }}" type = "text/css" rel="stylesheet" />
+        
+    </head>
     <body>
-
-        <p> Inicio de Sesión </p>
-
-
-        <form action = "/signIn" method ="post">
-
-            Usuario: <input type="text" id="user" name="user" required=""><br>
-            Contraseña: <input type="password" id="password" name="password" required=""><br>
-
-            <input type="submit" value="Inicio de Sesión">
-
-        </form>
-
-
-        <form action = "/beginSignUp">
-            <input type="submit" value="Registrarse">
-        </form>
-  
-
+        <div class="v503_133">
+            <span class="v503_134">Gaia Music </span>
+            <span class="v503_135">→ ¡Calidad asegurada de instrumentos! 
+            → ¡Envíos hasta su casa! 
+            <br>→ ¡Los mejores precios!
+            </span>
+           
+            <div class="v503_138"></div>
+            <div class="v795_84"></div>
+            <form class = "Rectangle" action = "/signIn" method = "post">
+                <input class = "inputContraUsuario" type = "password" id = "password" name = "password"></input>
+                <input class = "inputNomUsuario" id = "user" name = "user"></input>
+                <input class = "inputInicioSesion" type = "submit" value = "Iniciar sesión"></input>
+            </form>
+            <span class="v795_87">Nombre de usuario</span> 
+            <span class="v794_82">Contraseña</span>
+            <span class="v795_85">Iniciar sesión</span>
+            <span class="v795_83">¡Bienvenido!</span>
+            <span class="v794_84">¿Aún no tienes una cuenta?</span>
+            <a class = "Registrarse" href="https://www.w3schools.com">Registrarse</a>
+            <span class="v503_145">Pneuma Developers S.A
+            @2021</span>
+            <div class="v796_91"></div>
+            <div class="v796_93"></div>
+            <div class="v796_95"></div>
+            
+            <div class="v796_99"></div></div>
     </body>
-
 </html>
