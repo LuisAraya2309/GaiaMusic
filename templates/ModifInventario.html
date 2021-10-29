@@ -2,15 +2,16 @@
 <html>
     <head>
         <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet" />
-        <link href="./InventarioStyle.css" rel="stylesheet" />
-        <title>Document</title>
+        <link href="{{ url_for('static',filename='css/InventarioStyle.css') }}" rel="stylesheet" />
+        <title>Modificar Inventario</title>
     </head>
     <body>
         <div class="v812_111">
             <div class="v812_112">
                 <div class="v812_113"></div>
                 <div class="v812_114"></div>
-                <form class="Form1">
+
+                <form action = "/modifyProducts" method = "post" class="Form1">
                     <div class = "RectanguloGrande"> </div>
                     <span class="v812_119">Nuevo nombre </span>
                     <span class="v812_132">Fin garantía</span>
@@ -23,21 +24,21 @@
                     <span class="v849_84">Nombre del producto a cambiar</span>
                     <span class="v812_134">Precio</span>
                     <input class = "RealizarCambio" type = "submit" value = "Realizar cambio"></input>
-                    <input class="v812_124" id = "warrantyStart" name = "warrantyStart"></input>
-                    <input class="v848_83" id = "newName" name = "newName"></input>
+                    <input class="v812_124" id = "warrantyStart" name = "warrantyStart" required =""></input>
+                    <input class="v848_83" id = "newName" name = "newName" required =""></input>
                     <input class="v849_85" id = "oldName" name = "oldName"></input>
-                    <input class="v812_125" id = "price" name = "price"></input>
-                    <input class="v850_89" id = "inStock" name = "inStock"></input>
-                    <input class="v850_95" id = "category" name = "category"></input>
-                    <input class="v812_133" id = "warrantyEnd" name = "warrantyEnd"></input>
-                    <input class="v812_126" id = "productInformation" name = "productInformation"></input>
+                    <input class="v812_125" id = "price" name = "price" required =""></input>
+                    <input class="v850_89" id = "inStock" name = "inStock" required =""></input>
+                    <input class="v850_95" id = "category" name = "category" required =""></input>
+                    <input class="v812_133" id = "warrantyEnd" name = "warrantyEnd" required =""></input>
+                    <input class="v812_126" id = "productInformation" name = "productInformation" required =""></input>
 
                 </form>
 
                 <span class="v812_118">0</span>
                 <span class="v812_117">Buscar...</span>
 
-                <form class = "Form2">
+                <form action="/deleteProducts" method="post" class = "Form2">
                     <div class="RectanguloPequeño"></div>
                     <span class="v850_91">Nombre del producto a eliminar</span>
                     <input class="v850_92" id = "productToEliminate" name = "productToEliminate" ></input>
