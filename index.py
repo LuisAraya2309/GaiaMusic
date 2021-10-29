@@ -8,11 +8,11 @@ app = Flask(__name__)
 
 
 #Routes
-@app.route('/',methods=['GET'])
+@app.route('/',methods=['GET'])   #Login page
 def login():
     return render_template('login.html')
 
-@app.route('/signIn',methods=['GET','POST'])
+@app.route('/signIn',methods=['GET','POST'])  #Sign in
 def validateUser():
     user = request.form['user']
     password = request.form['password']
@@ -59,7 +59,7 @@ def signUp():
             if validUser != 1:
                 return render_template('login.html')
             else:
-                return "<script>window.location = '/'; alert('Usuario y/o contraseña inválidos.'); </script> " 
+                return "<script>alert('Usuario y/o contraseña inválidos.'); </script> " 
 
     except Exception as e:
         print(e)
@@ -67,6 +67,35 @@ def signUp():
     
     finally:
         dbConnection.close()
+
+
+@app.route('/modifyProducts',methods=['GET','POST'])
+def modifyProducts():
+    productName = request.form['productName']
+    beginGuarantee = request.form['beginGuarantee']
+    endGuarantee = request.form['endGuarantee']
+    price = request.form['price']
+    information = request.form['information']
+    dbConnection = connectToDatabase()
+    
+    try:
+        with dbConnection.cursor() as cursor:
+            query = 'EXEC sp_SignUp ? , ? , ? , ? , ? , ?'
+            cursor.execute(query,(name,address,user,password,'Customer',0))
+            queryResult = cursor.fetchall()
+            validUser = queryResult[0][0]
+            if validUser != 1:
+                return render_template('login.html')
+            else:
+                return "<script>alert('Usuario y/o contraseña inválidos.'); </script> " 
+
+    except Exception as e:
+        print(e)
+        return str(e) + 'Exception error. <a href="/">Intente de nuevo.</a>'
+    
+    finally:
+        dbConnection.close()
+
 
 
 #Run application
