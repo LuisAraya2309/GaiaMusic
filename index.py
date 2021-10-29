@@ -77,9 +77,39 @@ def signUp():
             queryResult = cursor.fetchall()
             validUser = queryResult[0][0]
             if validUser != 1:
-                return render_template('login.html')
+                return render_template('login.html') + '''<div class="window-notice" id="window-notice" >
+                                <div class="content">
+                                    <div class="content-text">Su cuenta se ha registrado con éxito.
+                                    </div>
+                                    <div class="content-buttons"><a href="#" id="close-button">Aceptar</a></div>
+                                </div>
+                            </div>
+                            <script>
+                                        let close_button = document.getElementById('close-button');
+                                            close_button.addEventListener("click", function(e) {
+                                            e.preventDefault();
+                                            document.getElementById("window-notice").style.display = "none";
+                                            window.location.href="/";
+                                        });
+                            </script>
+                            '''
             else:
-                return "<script>alert('Usuario y/o contraseña inválidos.'); </script> " 
+                return render_template('signUp.html') + '''<div class="window-notice" id="window-notice" >
+                                <div class="content">
+                                    <div class="content-text">El nombre de usuario elegido ya existe. Ingrese uno nuevo.
+                                    </div>
+                                    <div class="content-buttons"><a href="#" id="close-button">Aceptar</a></div>
+                                </div>
+                            </div>
+                            <script>
+                                        let close_button = document.getElementById('close-button');
+                                            close_button.addEventListener("click", function(e) {
+                                            e.preventDefault();
+                                            document.getElementById("window-notice").style.display = "none";
+                                            window.location.href="/beginSignUp";
+                                        });
+                            </script>
+                            '''
 
     except Exception as e:
         print(e)
