@@ -9,6 +9,17 @@ app = Flask(__name__)
 username =""
 
 
+
+
+#Function that creates the HTML for visualizing all the products
+def viewProducts():
+    
+    docHTML = ''''''
+
+
+
+
+
 #Routes
 @app.route('/',methods=['GET'])   #Login page
 def login():
@@ -27,13 +38,12 @@ def validateUser():
             validUser = queryResult[0][0]
             userType = queryResult[0][1]
             
-            userPages = {1:'customer.html',2:'ModifInventario.html',3:'supplier.html'}
+            userPages = {1:'products.html',2:'ModifInventario.html',3:'supplier.html'}
             if validUser != 1:
                 global username
                 username = user
                 return render_template(userPages[userType])
             else:
-                #return "<script>alert('Usuario y/o Contraseña inválidos');window.location.href = '/';</script>" 
                 return render_template('login.html') + '''<div class="window-notice" id="window-notice" >
                                 <div class="content">
                                     <div class="content-text">Usuario o contraseña inválido. Vuelva a intentarlo.
@@ -123,8 +133,6 @@ def signUp():
 def modifyProducts():
     productName = request.form['oldName']
     newName = request.form['newName']
-    beginGuarantee = request.form['warrantyStart']
-    endGuarantee = request.form['warrantyEnd']
     stock = request.form['inStock']
     category = request.form['category']
     price = request.form['price']
@@ -134,14 +142,44 @@ def modifyProducts():
     
     try:
         with dbConnection.cursor() as cursor:
-            query = 'EXEC sp_ModifyInstrument ? , ? , ? , ? , ? , ?, ? ,? ,? ,?'
-            cursor.execute(query,(category,username,productName,newName,information,price,beginGuarantee,endGuarantee,stock,0))
+            query = 'EXEC sp_ModifyInstrument ? , ? , ? , ? , ? , ?, ? ,?'
+            cursor.execute(query,(category,username,productName,newName,information,price,stock,0))
             queryResult = cursor.fetchall()
             resultCode = queryResult[0][0]
             if resultCode != 1:
-                return render_template('login.html')
+                return render_template('ModifInventario.html') + '''<div class="window-notice" id="window-notice" >
+                                <div class="content">
+                                    <div class="content-text">El instrumento se ha modificado con éxito.
+                                    </div>
+                                    <div class="content-buttons"><a href="#" id="close-button">Aceptar</a></div>
+                                </div>
+                            </div>
+                            <script>
+                                        let close_button = document.getElementById('close-button');
+                                            close_button.addEventListener("click", function(e) {
+                                            e.preventDefault();
+                                            document.getElementById("window-notice").style.display = "none";
+                                            
+                                        });
+                            </script>
+                            '''
             else:
-                return "<script>alert('No existe el articulo a modificar.'); </script> " 
+                return render_template('ModifInventario.html') + '''<div class="window-notice" id="window-notice" >
+                                <div class="content">
+                                    <div class="content-text">El instrumento a modificar no existe.
+                                    </div>
+                                    <div class="content-buttons"><a href="#" id="close-button">Aceptar</a></div>
+                                </div>
+                            </div>
+                            <script>
+                                        let close_button = document.getElementById('close-button');
+                                            close_button.addEventListener("click", function(e) {
+                                            e.preventDefault();
+                                            document.getElementById("window-notice").style.display = "none";
+                                            
+                                        });
+                            </script>
+                            '''
 
     except Exception as e:
         print(e)
@@ -172,6 +210,62 @@ def deleteProducts():
     
     finally:
         dbConnection.close()
+
+
+@app.route('/guarantee',methods=['GET','POST'])
+def guarantee():
+    productName = request.form['productName']
+    saleDate = request.form['saleDate']
+    detail = request.form['detail']
+    dbConnection = connectToDatabase()
+    try:
+        with dbConnection.cursor() as cursor:
+            query = 'EXEC sp_RequestWarranty ? , ? , ?, ?, ?'
+            cursor.execute(query,(username,productName,saleDate,detail,0))
+            queryResult = cursor.fetchall()
+            resultCode = queryResult[0][0]
+            if resultCode != 1:
+                return render_template('login.html') + '''<div class="window-notice" id="window-notice" >
+                                <div class="content">
+                                    <div class="content-text">Su solicitud de garantía se ha registrado con éxito.
+                                    </div>
+                                    <div class="content-buttons"><a href="#" id="close-button">Aceptar</a></div>
+                                </div>
+                            </div>
+                            <script>
+                                        let close_button = document.getElementById('close-button');
+                                            close_button.addEventListener("click", function(e) {
+                                            e.preventDefault();
+                                            document.getElementById("window-notice").style.display = "none";
+                                            window.location.href="/";
+                                        });
+                            </script>
+                            ''' 
+            else:
+                return render_template('guarantee.html') + '''<div class="window-notice" id="window-notice" >
+                                <div class="content">
+                                    <div class="content-text">Los datos suministrados para la solicitud de la garantía no son válidos.
+                                    </div>
+                                    <div class="content-buttons"><a href="#" id="close-button">Aceptar</a></div>
+                                </div>
+                            </div>
+                            <script>
+                                        let close_button = document.getElementById('close-button');
+                                            close_button.addEventListener("click", function(e) {
+                                            e.preventDefault();
+                                            document.getElementById("window-notice").style.display = "none";
+                                            window.location.href="/beginSignUp";
+                                        });
+                            </script>
+                            '''
+
+    except Exception as e:
+        print(e)
+        return str(e) + 'Exception error. <a href="/">Intente de nuevo.</a>'
+    
+    finally:
+        dbConnection.close()
+
 
 #Run application
 if __name__ == '__main__':

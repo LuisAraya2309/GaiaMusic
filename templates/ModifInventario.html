@@ -14,8 +14,6 @@
                 <form action = "/modifyProducts" method = "post" class="Form1">
                     <div class = "RectanguloGrande"> </div>
                     <span class="v812_119">Nuevo nombre </span>
-                    <span class="v812_132">Fin garantía</span>
-                    <span class="v848_82">Inicio garantía</span>
                     <span class="v812_120">Modificar Inventario</span>
                     <span class="v850_90">Eliminar producto</span>
                     <span class="v812_121">Información</span>
@@ -24,13 +22,11 @@
                     <span class="v849_84">Nombre del producto a cambiar</span>
                     <span class="v812_134">Precio</span>
                     <input class = "RealizarCambio" type = "submit" value = "Realizar cambio"></input>
-                    <input class="v812_124" id = "warrantyStart" name = "warrantyStart" required =""></input>
                     <input class="v848_83" id = "newName" name = "newName" required =""></input>
                     <input class="v849_85" id = "oldName" name = "oldName"></input>
-                    <input class="v812_125" id = "price" name = "price" required =""></input>
-                    <input class="v850_89" id = "inStock" name = "inStock" required =""></input>
+                    <input pattern ="[0-9]*" title="Recuerde que debe ser un valor monetario." class="v812_125" id = "price" name = "price" required =""></input>
+                    <input type= "text" pattern ="[0-9]*" title="Recuerde que debe ser un valor entero." class="v850_89" id = "inStock" name = "inStock" required =""></input>
                     <input class="v850_95" id = "category" name = "category" required =""></input>
-                    <input class="v812_133" id = "warrantyEnd" name = "warrantyEnd" required =""></input>
                     <input class="v812_126" id = "productInformation" name = "productInformation" required =""></input>
 
                 </form>
