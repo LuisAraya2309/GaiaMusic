@@ -13,8 +13,99 @@ username =""
 
 #Function that creates the HTML for visualizing all the products
 def viewProducts():
+    queryResult =[]
+    dbConnection = connectToDatabase()
+    try:
+        with dbConnection.cursor() as cursor:
+            query = 'EXEC sp_ViewProducts ?'
+            cursor.execute(query,(0))
+            queryResult = cursor.fetchall()
+            
+    except Exception as e:
+        return  "Error: "+ str(e) 
     
-    docHTML = ''''''
+    finally:
+        dbConnection.close()
+
+
+    
+    docHTML = '''  <!doctype html>
+                    <html lang="en">
+                    <head>
+                        <meta charset="utf-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1">
+                        <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet" />
+                        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+                        <link href="./static/css/products.css" rel="stylesheet" />
+                        <title>Products</title>
+                    </head>
+                    <body>
+                        <div class="v903_105">
+                        <div class="v903_107"></div>
+                        <span class="v903_109">0</span>
+                        <div class="v903_110"></div>
+                        <span class="v903_111">Gaia 
+                        Music </span>
+                        <span class="v914_82">Nuestros
+                        Productos</span>
+                        <div class="v903_112"></div>
+                        <div class="v914_84"></div>
+                        <div class="v914_86"></div></div></div>
+                    
+
+                        <div class= "container">   
+                        
+                        '''
+    
+    columns = 3
+    closeRow = 3
+    for instrument in queryResult:
+        newRow = columns==closeRow
+        if newRow:
+            docHTML+= '''<div class = "row ">'''
+            closeRow+=3
+
+        instrumentName = str(instrument[0])
+        detail = str(instrument[1])
+        price = str(instrument[2])
+        
+        docHTML+= ''' <div class="col-12 col-md6 col-lg-4 p-3">
+                    <div class="card border-dark text-dark">
+                    <div class="card-header">'''
+        docHTML+=instrumentName
+        docHTML+='''</div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            <dl class="row">
+                                <dt class="col-sm-4">Nombre:</dt>
+                                <dd class="col-sm-8">'''
+
+        docHTML+=instrumentName
+        docHTML+='''</dd><dt class="col-sm-4">Descripción:</dt><dd class="col-sm-8">'''
+        docHTML+=detail
+        docHTML+='''</dd><dt class="col-sm-4">Precio:</dt> <dd class="col-sm-8">'''
+        docHTML+=price
+        docHTML+='''</dd></dl> </p><a href="#" class="btn btn-primary">Comprar Producto</a>
+                    </div> </div></div>'''
+        
+        columns+=1
+        if columns==closeRow:
+            docHTML+=''' </div>'''
+
+
+    docHTML+='''</body>
+                </html>
+             '''
+    return docHTML
+
+
+
+
+
+
+
+
+    
 
 
 
@@ -38,11 +129,14 @@ def validateUser():
             validUser = queryResult[0][0]
             userType = queryResult[0][1]
             
-            userPages = {1:'products.html',2:'ModifInventario.html',3:'supplier.html'}
+            userPages = {2:'ModifInventario.html',3:'supplier.html'}
             if validUser != 1:
                 global username
                 username = user
-                return render_template(userPages[userType])
+                if userType == 1:
+                    return render_template(viewProducts())
+                else:
+                    return render_template(userPages[userType])
             else:
                 return render_template('login.html') + '''<div class="window-notice" id="window-notice" >
                                 <div class="content">
@@ -63,7 +157,7 @@ def validateUser():
 
     except Exception as e:
         print(e)
-        return str(e) + 'Exception error. <a href="/">Intente de nuevo.</a>'
+        return str(e) + 'Exception error aquiiiiiiii. <a href="/">Intente de nuevo.</a>'
     
     finally:
         dbConnection.close()
