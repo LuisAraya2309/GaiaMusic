@@ -7,6 +7,9 @@ app = Flask(__name__)
 
 #Global variables
 username =""
+instrumentName = ""
+
+
 
 
 
@@ -48,6 +51,9 @@ def viewProducts():
                         Music </span>
                         <span class="v914_82">Nuestros
                         Productos</span>
+
+                        <
+
                         <div class="v903_112"></div>
                         <div class="v914_84"></div>
                         <div class="v914_86"></div></div></div>
@@ -85,9 +91,17 @@ def viewProducts():
         docHTML+=detail
         docHTML+='''</dd><dt class="col-sm-4">Precio:</dt> <dd class="col-sm-8">'''
         docHTML+=price
-        docHTML+='''</dd></dl> </p><a href="#" class="btn btn-primary">Comprar Producto</a>
-                    </div> </div></div>'''
+        docHTML+='''</dd></dl> </p>
+        <form action = '/buyProduct' method = 'post'>
+        <input type ="hidden" id = "instrumentName" name = "instrumentName" value = "'''
+        docHTML+=(instrumentName)
+        docHTML+='''" >'''
+        docHTML+='''<input type = "submit" value = "Comprar producto" class = "btn btn-primary">
+        </form>
+        </div> </div></div>'''
         
+
+
         columns+=1
         if columns==closeRow:
             docHTML+=''' </div>'''
@@ -98,14 +112,6 @@ def viewProducts():
              '''
     return docHTML
 
-
-
-
-
-
-
-
-    
 
 
 
@@ -359,6 +365,174 @@ def guarantee():
     
     finally:
         dbConnection.close()
+
+
+#Buy product
+@app.route('/buyProduct',methods=['GET','POST'])
+def buyProduct():
+    global instrumentName
+    try:
+        instrumentName = request.form['instrumentName']
+    except:
+        pass
+    dbConnection = connectToDatabase()
+    try:
+        with dbConnection.cursor() as cursor:
+            query = 'EXEC sp_SelectProduct ?,? '
+            cursor.execute(query,(instrumentName,0))
+            queryResult = cursor.fetchall()
+
+    except Exception as e:
+        print(e)
+        return str(e) + 'Exception error. <a href="/">Intente de nuevo.</a>'
+    
+    finally:
+        dbConnection.close()
+    
+    instrument = queryResult[0]
+    
+
+    instrumentName = str(instrument[0])
+    detail = str(instrument[1])
+    price = str(instrument[2])
+    stockAmount = str(instrument[3])
+
+    docHTML = ''' <!DOCTYPE html>
+                    <html>
+                        <head>
+                            <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet" />
+                            <link href="./static/css/buy.css" rel="stylesheet" />
+
+                            <title>Comprar Productos</title>
+                            '''
+    docHTML+='''<style type = "text/css">
+                        div.v814_165{
+                            width: 243px;
+                            height: 270px;
+                            background: url("./static/images/'''
+    docHTML+=instrumentName
+    docHTML+='''.jpg");
+                            background-repeat: no-repeat;
+                            background-position: center center;
+                            background-size: cover;
+                            opacity: 1;
+                            position: absolute;
+                            top: 147px;
+                            left: 74px;
+                            border-top-left-radius: 112px;
+                            border-top-right-radius: 112px;
+                            border-bottom-left-radius: 112px;
+                            border-bottom-right-radius: 112px;
+                            overflow: hidden;
+                            }
+                        </style>
+                        </head>
+                        <body>
+                            <div class="v814_139">
+                                <div class="v814_140">
+                                    <div class="v814_141"></div>
+                                    <div class="v814_142"></div>
+                                    <div class="v814_143"></div>
+                                    <span class="v814_144">Buscar...</span>
+                                    <span class="v814_145">0</span>
+                                    <span class="v814_146">Cantidad en  inventario: </span>
+                                    <textarea class = "productDetail" readonly="readonly" style="overflow:hidden">'''
+    docHTML+=detail
+    docHTML+='''</textarea >
+                <span class="v814_147">Duración de la garantía:</span>
+                <span class="v814_150">Precio total: </span>
+                <div class="v912_82"></div>
+                <div class="v912_85"></div>
+                <form action = '/buyingProduct' method='post'>
+                    <input type= "submit" class="v912_85" value="Comprar Producto"> </input>
+                </form>
+                <span class="v912_83">Agregar a carrito</span>
+                <div class="v814_158"></div>
+                <span class="v814_159">Gaia Music </span>
+                <div class="v814_160"></div>
+                <span class="v815_140">Información de compra</span>
+                <div class="v912_86"></div>
+                <div class="v912_87"></div>
+                <div class="v912_88"></div>
+                <span class="itemsInStock">'''
+    docHTML+=stockAmount
+    docHTML+='''</span>
+                <span class="warranty">1 año</span>
+                <span class="totalPrice">'''
+    docHTML+=price
+    docHTML+='''</span>
+                        </div>
+                        <div class="v814_161"></div>
+                        <div class = "v814_165">
+                        </div>
+                    </div>
+                </body>
+            </html>'''
+    return docHTML
+    
+@app.route('/buyingProduct',methods=['GET','POST'])
+def finishBuy():
+    dbConnection = connectToDatabase()
+    try:
+        with dbConnection.cursor() as cursor:
+            query = 'EXEC sp_BuyProduct ?,?,?,? '
+            cursor.execute(query,(instrumentName,username,1,0))
+            queryResult = cursor.fetchall()
+            resultCode = queryResult[0][0]
+
+            if resultCode==0:
+                return '''<html>
+                                <head>
+                                    <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet" />
+                                    <link href="./static/css/buy.css" rel="stylesheet" />
+                                </head>
+                                <body> 
+                                    <div class="window-notice" id="window-notice" >
+                                        <div class="content">
+                                            <div class="content-text">Se ha realizado su compra con éxito.
+                                            </div>
+                                            <div class="content-buttons"><a href="#" id="close-button">Aceptar</a></div>
+                                        </div>
+                                    </div>
+                                    <script>
+                                                let close_button = document.getElementById('close-button');
+                                                    close_button.addEventListener("click", function(e) {
+                                                    e.preventDefault();
+                                                    document.getElementById("window-notice").style.display = "none";
+                                                    window.location.href="/buyProduct";
+                                                });
+                                    </script>
+                                </body>
+
+                                </html>
+                                ''' 
+            else:
+                return '''<div class="window-notice" id="window-notice" >
+                                    <div class="content">
+                                        <div class="content-text">Se ha realizado su compra con éxito.
+                                        </div>
+                                        <div class="content-buttons"><a href="#" id="close-button">Aceptar</a></div>
+                                    </div>
+                                </div>
+                                <script>
+                                            let close_button = document.getElementById('close-button');
+                                                close_button.addEventListener("click", function(e) {
+                                                e.preventDefault();
+                                                document.getElementById("window-notice").style.display = "none";
+                                                window.location.href="/buyProduct";
+                                            });
+                                </script>
+                                ''' 
+
+
+    except Exception as e:
+        print(e)
+        return str(e) + 'Exception error. <a href="/">Intente de nuevo.</a>'
+    
+    finally:
+        dbConnection.close()
+
+
 
 
 #Run application
