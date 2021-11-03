@@ -208,7 +208,7 @@ body {
   width: 197px;
   color: rgba(0,0,0,1);
   position: absolute;
-  top: 507px;
+  top: 450px;
   left: 767px;
   font-family: Inter;
   font-weight: Semi Bold;
@@ -220,7 +220,7 @@ body {
   width: 56px;
   color: rgba(0,0,0,1);
   position: absolute;
-  top: 500px;
+  top: 450px;
   left: 361px;
   font-family: Inter;
   font-weight: Semi Bold;
@@ -341,7 +341,7 @@ body {
   background: rgba(216,216,216,1);
   opacity: 1;
   position: absolute;
-  top: 540px;
+  top: 500px;
   left: 350px;
   border-top-left-radius: 50px;
   border-top-right-radius: 50px;
@@ -358,7 +358,7 @@ body {
   background: rgba(216,216,216,1);
   opacity: 1;
   position: absolute;
-  top: 540px;
+  top: 500px;
   left: 767px;
   border-top-left-radius: 50px;
   border-top-right-radius: 50px;
