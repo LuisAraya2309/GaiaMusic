@@ -126,3 +126,16 @@ body {
   left: 37px;
   overflow: hidden;
 }
+
+.solicitarGarantia{
+  width: 266px;
+  color: rgba(255,255,255,1);
+  position: absolute;
+  top: 760px;
+  left: 31px;
+  font-family: Inter;
+  font-weight: Semi Bold;
+  font-size: 36px;
+  opacity: 1;
+  text-align: left;
+}

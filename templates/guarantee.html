@@ -3,7 +3,7 @@
     <head>
         <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet" />
         <link href="{{ url_for('static',filename='css/guarantee.css') }}" rel="stylesheet" />
-        <title>Document</title>
+        <title>Solicitar Garantía </title>
     </head>
         <body>
             <div class="v802_82">
@@ -16,14 +16,14 @@
             </div>
             <span class="v812_108">Buscar...</span>
             <span class="v812_110">0</span>
-            <form action = "/applyGuarantee" method = "post">
+            <form action = "/guarantee" method = "post">
                 <span class="v802_89">Nombre del producto</span>
                 <span class="v802_90">Fecha de compra</span>
                 <span class="v802_91">Motivo de solicitud</span>
                 <span class="v802_92">Solicitar Garantía</span>
                 <input type = "submit" value="Enviar Solicitud" class="v802_98"></div>
                 <input type ="text" class="v802_99" id = "productName" name="productName" required = ""></div>
-                <input type ="text" class="v802_100" id = "saleDate" name = "saleDate" required = ""></div>
+                <input type ="text" pattern = "([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))" class="v802_100" id = "saleDate" name = "saleDate" required = ""></div>
                 <input type ="text" class="v802_101" id = "detail" name= "detail" required = ""></div>
             </form>
             <div class="v802_104"></div>

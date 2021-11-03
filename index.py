@@ -52,7 +52,7 @@ def viewProducts():
                         <span class="v914_82">Nuestros
                         Productos</span>
 
-                        <
+                        <a class="solicitarGarantia" href="/startGuarantee">Solicitar garantía</a>
 
                         <div class="v903_112"></div>
                         <div class="v914_84"></div>
@@ -311,6 +311,10 @@ def deleteProducts():
     finally:
         dbConnection.close()
 
+@app.route('/startGuarantee',methods=['GET','POST'])
+def startGuarantee():
+    return render_template('guarantee.html')
+
 
 @app.route('/guarantee',methods=['GET','POST'])
 def guarantee():
@@ -320,12 +324,12 @@ def guarantee():
     dbConnection = connectToDatabase()
     try:
         with dbConnection.cursor() as cursor:
-            query = 'EXEC sp_RequestWarranty ? , ? , ?, ?, ?'
+            query = 'EXEC sp_RequestWarranty ?,?,?,?,?'
             cursor.execute(query,(username,productName,saleDate,detail,0))
             queryResult = cursor.fetchall()
             resultCode = queryResult[0][0]
             if resultCode != 1:
-                return render_template('login.html') + '''<div class="window-notice" id="window-notice" >
+                return render_template('guarantee.html') + '''<div class="window-notice" id="window-notice" >
                                 <div class="content">
                                     <div class="content-text">Su solicitud de garantía se ha registrado con éxito.
                                     </div>
@@ -337,7 +341,7 @@ def guarantee():
                                             close_button.addEventListener("click", function(e) {
                                             e.preventDefault();
                                             document.getElementById("window-notice").style.display = "none";
-                                            window.location.href="/";
+                                            window.location.href="/startGuarantee";
                                         });
                             </script>
                             ''' 
@@ -354,7 +358,7 @@ def guarantee():
                                             close_button.addEventListener("click", function(e) {
                                             e.preventDefault();
                                             document.getElementById("window-notice").style.display = "none";
-                                            window.location.href="/beginSignUp";
+                                            
                                         });
                             </script>
                             '''
