@@ -1,6 +1,7 @@
 #Libraries
 from flask import Flask,render_template,request #Flask framework
 from databaseConnection import *
+import json
 #App creation
 app = Flask(__name__)
 
@@ -30,12 +31,12 @@ def manageOrders():
     ordersDicc = {}
     orderId = 1
     for order in ordersInformation:
-        detail = order[1]
-        date = order[2]
-        status = order[3]
-        ordersDicc[orderId] = {'detail':detail,'date':date,'status':status}
+        idOrder = order[1]
+        detail = order[2]
+        date = order[3]
+        status = order[4]
+        ordersDicc[orderId] = {'idOrder':idOrder,'detail':detail,'date':date,'status':status}
         orderId+=1
-    
     
     docHTML = '''<!DOCTYPE html>
                 <html>
@@ -67,7 +68,39 @@ def manageOrders():
 
                     </div>
 
-                    <form class = "form1">
+                    <script >
+                        function updateOrderStatus(){
+                            var todoCards = document.getElementById('todo').getElementsByClassName('card');
+                            var doingCards = document.getElementById('doing').getElementsByClassName('card');
+                            var doneCards = document.getElementById('done').getElementsByClassName('card');
+
+                            var todo = [];
+                            var doing = [];
+                            var done = [];
+
+                            for(var i =0;i<todoCards.length;i++){
+                                todo.push(todoCards[i].innerHTML)
+                            }
+
+                            
+                            for(var i =0;i<doingCards.length;i++){
+                                doing.push(doingCards[i].innerHTML)
+                            }
+
+                            
+                            for(var i =0;i<doneCards.length;i++){
+                                done.push(doneCards[i].innerHTML)
+                            }
+
+                            var sendJSON = {'ToDo':todo,'Doing':doing,'Done':done};
+                            sendJSON = JSON.stringify(sendJSON);
+                            document.getElementById('json').value = sendJSON;
+                        }
+                        
+                    </script>
+
+
+                    <form action = "/orderStatus" class = "form1" method="post">
                         <div id="board">
                             <div id="todo" class="section">
                                 <h1>Por hacer</h1>'''
@@ -80,6 +113,9 @@ def manageOrders():
             docHTML+= '''<div id="'''
             docHTML+=str(idC)
             docHTML+='''" class="card">'''
+            docHTML+='''Orden #'''
+            docHTML+=str(order['idOrder'])
+            docHTML+=''':<br>'''
             docHTML+=str(order['detail'])
             docHTML+="<br> Fecha: "
             docHTML+=str(order['date'])
@@ -97,6 +133,9 @@ def manageOrders():
             docHTML+= '''<div id="'''
             docHTML+=str(idC)
             docHTML+='''" class="card">'''
+            docHTML+='''Orden #'''
+            docHTML+=str(order['idOrder'])
+            docHTML+=''':<br>'''
             docHTML+=str(order['detail'])
             docHTML+="<br> Fecha: "
             docHTML+=str(order['date'])
@@ -108,6 +147,10 @@ def manageOrders():
                             <h1>Finalizado</h1>
                         </div>
                     </div>
+
+                    <input type="hidden" id="json" name="json" value="blabla">
+                    <input class = "updateButton" type = "submit" onclick = "updateOrderStatus()" value="Aplicar Cambios"> </input>
+
                     </form>
                     <script>
                         var cards = document.querySelectorAll('.card');
@@ -742,6 +785,54 @@ def finishBuy():
     finally:
         dbConnection.close()
 
+@app.route('/orderStatus',methods=['GET','POST'])
+def updateOrderStatus():
+    ordersStatus = request.form['json']
+    ordersStatus = json.loads(ordersStatus)
+    
+    for status in ordersStatus:
+        if ordersStatus[status]!=[]:
+            for order in ordersStatus[status]:
+                begin = order.find('#')
+                end = order.find(':')
+                orderId = order[begin+1:end]
+                try:
+                    dbConnection = connectToDatabase()
+                    with dbConnection.cursor() as cursor:
+                        query = 'EXEC sp_UpdateOrderStatus ?,?,?'
+                        cursor.execute(query,(status,orderId,0))
+                        queryResult = cursor.fetchall()
+                        resultCode = queryResult[0][0]
+                        
+                except Exception as e:
+                    return str(e)
+                finally:
+                     dbConnection.close()
+
+    return manageOrders() + '''<html>
+                    <head>
+                        <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet" />
+                        <link href="./static/css/buy.css" rel="stylesheet" />
+                    </head>
+                    <body> 
+                        <div class="window-notice" id="window-notice" >
+                            <div class="content">
+                                <div class="content-text">Se han aplicado los cambios con éxito.
+                                </div>
+                                <div class="content-buttons"><a href="#" id="close-button">Aceptar</a></div>
+                            </div>
+                        </div>
+                        <script>
+                                    let close_button = document.getElementById('close-button');
+                                        close_button.addEventListener("click", function(e) {
+                                        e.preventDefault();
+                                        document.getElementById("window-notice").style.display = "none";
+                                    });
+                        </script>
+                    </body>
+
+                    </html> 
+                    ''' 
 
 
 

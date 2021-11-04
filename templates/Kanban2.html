@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet" />
-    <link href="./kanban.css" rel="stylesheet" />
+    <link href="./static/css/kanban.css" rel="stylesheet" />
     <title>Administrar encargos</title>
 
 </head>
@@ -28,7 +28,30 @@
 
     </div>
 
-    <form class = "form1">
+    <script >
+        function updateOrderStatus(){
+            var todoCards = document.getElementById('todo').getElementsByClassName('card');
+            var doingCards = document.getElementById('doing').getElementsByClassName('card');
+            var doneCards = document.getElementById('done').getElementsByClassName('card');
+
+            /*
+            for(var i =0;i<todoCards.length;i++){
+                console.log(todoCards[i].innerHTML)
+
+            }
+            */
+            var sendJSON = {'todo':todoCards,'doing':doingCards,'done':doneCards};
+            sendJSON
+
+
+        }
+        
+
+
+    </script>
+
+
+    <form action = "/orderStatus" class = "form1">
         <div id="board">
             <div id="todo" class="section">
                 <h1>Por hacer</h1>
@@ -43,7 +66,12 @@
                 <h1>Finalizado</h1>
             </div>
         </div>
+        
+        <input type="hidden" name="json">
+        <input type = "submit" onclick = "updateOrderStatus()" value="Aplicar Cambios"> </input>
+
     </form>
+
     <script>
         var cards = document.querySelectorAll('.card');
 
