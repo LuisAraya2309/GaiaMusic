@@ -11,6 +11,66 @@ username =""
 instrumentName = ""
 
 
+#Function that creates the HTML for modifying the products
+def modifyingProducts():
+    docHTML = '''<!DOCTYPE html>
+                <html>
+                    <head>
+                        <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet" />
+                        <link href="{{ url_for('static',filename='css/InventarioStyle.css') }}" rel="stylesheet" />
+                        <title>Modificar Inventario</title>
+                    </head>
+                    <body>
+                        <div class="v812_111">
+                            <div class="v812_112">
+                                <div class="v812_113"></div>
+                                <div class="v812_114"></div>
+
+                                <form action = "/modifyProducts" method = "post" class="Form1">
+                                    <div class = "RectanguloGrande"> </div>
+                                    <span class="v812_119">Nuevo nombre </span>
+                                    <span class="v812_120">Modificar Inventario</span>
+                                    <span class="v850_90">Eliminar producto</span>
+                                    <span class="v812_121">Información</span>
+                                    <span class="v850_96">Categoría</span>
+                                    <span class="v850_88">Cantidad en Inventario</span>
+                                    <span class="v849_84">Nombre del producto a cambiar</span>
+                                    <span class="v812_134">Precio</span>
+                                    <input class = "RealizarCambio" type = "submit" value = "Realizar cambio"></input>
+                                    <input class="v848_83" id = "newName" name = "newName" required =""></input>
+                                    <input class="v849_85" id = "oldName" name = "oldName"></input>
+                                    <input pattern ="[0-9]*" title="Recuerde que debe ser un valor monetario." class="v812_125" id = "price" name = "price" required =""></input>
+                                    <input type= "text" pattern ="[0-9]*" title="Recuerde que debe ser un valor entero." class="v850_89" id = "inStock" name = "inStock" required =""></input>
+                                    <input class="v850_95" id = "category" name = "category" required =""></input>
+                                    <input class="v812_126" id = "productInformation" name = "productInformation" required =""></input>
+
+                                </form>
+
+                                <span class="v812_118">0</span>
+                                <span class="v812_117">Buscar...</span>
+
+                                <form action="/deleteProducts" method="post" class = "Form2">
+                                    <div class="RectanguloPequeño"></div>
+                                    <span class="v850_91">Nombre del producto a eliminar</span>
+                                    <input class="v850_92" id = "productToEliminate" name = "productToEliminate" ></input>
+                                    
+                                    <span class="v850_94">Eliminar producto</span>'''
+    
+
+    dbConnection = connectToDatabase()
+    try:
+        with dbConnection.cursor() as cursor:
+            query = 'EXEC sp_ViewOrders ?,?'
+            cursor.execute(query,(username,0))
+            queryResult = cursor.fetchall()
+            
+    except Exception as e:
+        return  "Error: "+ str(e) 
+    
+    finally:
+        dbConnection.close()
+
+
 #Function that creates the HTML for managing the orders
 
 def manageOrders():
@@ -363,8 +423,6 @@ def viewProducts():
 
 
 
-
-
 #Routes
 @app.route('/',methods=['GET'])   #Login page
 def login():
@@ -562,8 +620,8 @@ def deleteProducts():
 
 @app.route('/startGuarantee',methods=['GET','POST'])
 def startGuarantee():
-    return render_template('guarantee.html')
 
+    return render_template('guarantee.html')
 
 @app.route('/guarantee',methods=['GET','POST'])
 def guarantee():
