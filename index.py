@@ -10,6 +10,211 @@ username =""
 instrumentName = ""
 
 
+#Function that creates the HTML for managing the orders
+
+def manageOrders():
+    ordersInformation =[]
+    dbConnection = connectToDatabase()
+    try:
+        with dbConnection.cursor() as cursor:
+            query = 'EXEC sp_ViewOrders ?,?'
+            cursor.execute(query,(username,0))
+            ordersInformation = cursor.fetchall()
+            
+    except Exception as e:
+        return  "Error: "+ str(e) 
+    
+    finally:
+        dbConnection.close()
+    
+    ordersDicc = {}
+    orderId = 1
+    for order in ordersInformation:
+        detail = order[1]
+        date = order[2]
+        status = order[3]
+        ordersDicc[orderId] = {'detail':detail,'date':date,'status':status}
+        orderId+=1
+    
+    
+    docHTML = '''<!DOCTYPE html>
+                <html>
+                <head>
+                    <meta charset="utf-8">
+                    <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet" />
+                    <link href="./static/css/kanban.css" rel="stylesheet" />
+                    <title>Administrar encargos</title>
+
+                </head>
+                <body>
+
+                    <div class="v922_91">
+                        <div class="v922_92">
+                            <div class="v922_93"></div>
+                            <div class="v922_94"></div>
+                            <span class="v922_96">Buscar...</span>
+                            <span class="v922_97">0</span>
+                            <div class="v922_107"></div>
+                            <span class="v922_108">Gaia Music </span>
+                            <div class="v922_109"></div>
+                            <span class = "Titulo">Gestionar encargos</span>
+                            <div class="imagen1"></div>
+                            <div class="imagen2"></div>
+                            <div class="imagen3"></div>
+                            <div class="imagen4"></div>
+                        </div>
+                        <div class="v922_110"></div>
+
+                    </div>
+
+                    <form class = "form1">
+                        <div id="board">
+                            <div id="todo" class="section">
+                                <h1>Por hacer</h1>'''
+    #Id for cards
+    idC = 1
+    #Append the todo orders
+    for orderId in ordersDicc:
+        order = ordersDicc[orderId]
+        if order['status'] == 'ToDo':
+            docHTML+= '''<div id="'''
+            docHTML+=str(idC)
+            docHTML+='''" class="card">'''
+            docHTML+=str(order['detail'])
+            docHTML+="<br> Fecha: "
+            docHTML+=str(order['date'])
+            docHTML+='''</div>'''
+            idC+=1
+    
+    docHTML+='''</div>
+            <div id="doing" class="section">
+                <h1>En proceso</h1>'''
+    
+    #Append the doing orders
+    for orderId in ordersDicc:
+        order = ordersDicc[orderId]
+        if order['status'] == 'Doing':
+            docHTML+= '''<div id="'''
+            docHTML+=str(idC)
+            docHTML+='''" class="card">'''
+            docHTML+=str(order['detail'])
+            docHTML+="<br> Fecha: "
+            docHTML+=str(order['date'])
+            docHTML+='''</div>'''
+            idC+=1
+
+    docHTML+='''</div>
+                        <div id="done" class="section">
+                            <h1>Finalizado</h1>
+                        </div>
+                    </div>
+                    </form>
+                    <script>
+                        var cards = document.querySelectorAll('.card');
+
+        for (var i = 0, n = cards.length; i < n; i++) {
+            var card = cards[i];
+            card.draggable = true;
+        };
+
+        var board = document.getElementById('board');
+
+        var hideMe;
+
+        board.onselectstart = function(e) {
+            e.preventDefault();
+        }
+
+        board.ondragstart = function(e) {
+            console.log('dragstart');
+            hideMe = e.target;
+            e.dataTransfer.setData('card', e.target.id);
+            e.dataTransfer.effectAllowed = 'move';
+        };
+
+        board.ondragend = function(e) {
+            e.target.style.visibility = 'visible';
+        };
+
+        var lastEneterd;
+
+        board.ondragenter = function(e) {
+            console.log('dragenter');
+            if (hideMe) {
+                hideMe.style.visibility = 'hidden';
+                hideMe = null;
+            }
+            // Save this to check in dragleave.
+            lastEntered = e.target;
+            var section = closestWithClass(e.target, 'section');
+            // TODO: Check that it's not the original section.
+            if (section) {
+                section.classList.add('droppable');
+                e.preventDefault(); // Not sure if these needs to be here. Maybe for IE?
+                return false;
+            }
+        };
+
+        board.ondragover = function(e) {
+            // TODO: Check data type.
+            // TODO: Check that it's not the original section.
+            if (closestWithClass(e.target, 'section')) {
+                e.preventDefault();
+            }
+        };
+
+        board.ondragleave = function(e) {
+            // FF is raising this event on text nodes so only check elements.
+            if (e.target.nodeType === 1) {
+                // dragleave for outer elements can trigger after dragenter for inner elements
+                // so make sure we're really leaving by checking what we just entered.
+                // relatedTarget is missing in WebKit: https://bugs.webkit.org/show_bug.cgi?id=66547
+                var section = closestWithClass(e.target, 'section');
+                if (section && !section.contains(lastEntered)) {
+                    section.classList.remove('droppable');
+                }
+            }
+            lastEntered = null; // No need to keep this around.
+        };
+
+        board.ondrop = function(e) {
+            var section = closestWithClass(e.target, 'section');
+            var id = e.dataTransfer.getData('card');
+            if (id) {
+                var card = document.getElementById(id);
+                // Might be a card from another window.
+                if (card) {
+                    if (section !== card.parentNode) {
+                        section.appendChild(card);
+                    }
+                } else {
+                    alert('could not find card #' + id);
+                }
+            }
+            section.classList.remove('droppable');
+            e.preventDefault();
+        };
+
+        function closestWithClass(target, className) {
+            while (target) {
+                if (target.nodeType === 1 &&
+                    target.classList.contains(className)) {
+                    return target;
+                }
+                target = target.parentNode;
+            }
+            return null;
+        }
+                    </script>
+                </body>
+                </html>
+                '''
+    return docHTML
+
+    
+    
+    
+    
 
 
 
@@ -134,15 +339,16 @@ def validateUser():
             queryResult = cursor.fetchall()
             validUser = queryResult[0][0]
             userType = queryResult[0][1]
-            
-            userPages = {2:'ModifInventario.html',3:'supplier.html'}
+
             if validUser != 1:
                 global username
                 username = user
                 if userType == 1:
-                    return render_template(viewProducts())
+                    return viewProducts()
+                elif userType == 3:
+                    return manageOrders()
                 else:
-                    return render_template(userPages[userType])
+                    return render_template('ModifInventario.html')
             else:
                 return render_template('login.html') + '''<div class="window-notice" id="window-notice" >
                                 <div class="content">
