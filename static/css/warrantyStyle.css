@@ -108,13 +108,19 @@ body {
   background: rgba(48,131,254,1);
   opacity: 1;
   position: absolute;
-  top: 774px;
-  left: 1042px;
+  top: 575px;
+  left: 700px;
+  color: rgba(256,256,256,1);
+  font-family: Inter;
+  font-weight: Semi Bold;
+  font-size: 22px;
   border-top-left-radius: 50px;
   border-top-right-radius: 50px;
   border-bottom-left-radius: 50px;
   border-bottom-right-radius: 50px;
+  overflow: hidden;
 }
+
 
 .selectProduct {
   width: 961px;
@@ -122,12 +128,15 @@ body {
   background: rgba(216,216,216,1);
   opacity: 1;
   position: absolute;
+  font-family: Inter;
+  font-weight: Semi Bold;
+  font-size: 16px;
   top: 125px;
   left: 75px;
-  border-top-left-radius: 50px;
-  border-top-right-radius: 50px;
-  border-bottom-left-radius: 50px;
-  border-bottom-right-radius: 50px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
   overflow: hidden;
 }
 .v956_91 {
@@ -138,11 +147,12 @@ body {
   position: absolute;
   top: 300px;
   left: 75px;
-  border-top-left-radius: 50px;
-  border-top-right-radius: 50px;
-  border-bottom-left-radius: 50px;
-  border-bottom-right-radius: 50px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
   overflow: hidden;
+  resize: none;
 }
 .v802_103 {
   width: 311px;
@@ -232,10 +242,68 @@ body {
   overflow: hidden;
 }
 
-.form1{
-  position: absolute;
-  width: 1300px;
-  height: 692px;
-  top: 205px;
-  left: 133px;
+
+body {
+  box-sizing: border-box;
+  font-family: 'Raleway', Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.window-notice {
+  background: rgba(33, 41, 52, .85);
+  bottom: 0;
+  display: flex;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 999;
+  transition: background .6s;
+}
+
+.window-notice .content {
+  background: #fff;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(33, 41, 52, .75);
+  box-sizing: content-box;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  max-width: 600px;
+  min-width: 320px !important;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  padding: 2rem;
+  font-size: 1.3rem;
+}
+
+.content-buttons {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.content-buttons a {
+  text-decoration: none;
+  display: inline-block;
+  padding: 1rem;
+  background-color: #0080DE;
+  color: #FFF;
+  text-transform: uppercase;
+}
+
+.content-buttons a:hover {
+  background-color: #006AB8;
+}
+
+.content-text a {
+  color: #0080DE;
+  text-decoration: none;
+}
+
+.content-text a:hover {
+  color: #006AB8;
+  text-decoration: underline;
+  text-align: justify;
 }

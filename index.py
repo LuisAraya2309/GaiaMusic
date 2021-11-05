@@ -10,8 +10,94 @@ app = Flask(__name__)
 username =""
 instrumentName = ""
 
+#Function that creates the HTML for record products
+def starGuarantee():
+    recordProductsInformation = []
+    dbConnection = connectToDatabase()
+    try:
+        with dbConnection.cursor() as cursor:
+            query = 'EXEC sp_ViewRecordProducts ?,?'
+            cursor.execute(query,(username,0))
+            recordProductsInformation = cursor.fetchall()
+            
+    except Exception as e:
+        return  "Error: "+ str(e) 
+    
+    finally:
+        dbConnection.close()
 
+    recordProductsDicc = {}
+    productId = 1
+    for product in recordProductsInformation:
+        productTitle = product[0]
+        transactionDate = product[1]
+        price = product[2]
+        warranty = product[3]
+        recordProductsDicc[productId] = {'productTitle':productTitle,'transactionDate':transactionDate,'price':price,'warranty':warranty}
+        productId+=1
+    
+        
+    docHTML = '''<!DOCTYPE html>
+                    <html>
+                        <head>
+                            <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet" />
+                            <link href="./static/css/warrantyStyle.css" rel="stylesheet" />
+                            <title>Document</title>
+                        </head>
+                        <body>
+                            <div class="v802_82">
+                                <div class="v802_83">
+                                    <div class="v812_107"></div>
+                                    <div class="v812_109"></div>
+                                    <div class="v802_104"></div>
+                                    <span class="v802_84">Gaia Music </span>
+                                    <span class="v812_108">Buscar...</span>
+                                    <span class="v812_110">0</span>
+                                    <span class="v802_92">Historial de compras</span>
 
+                                    <form method = "post" action = "/guarantee" class = "v802_87">
+                                        <textarea id = "detail" name = "detail" class="v956_91" ></textarea>
+                                        <span class="v802_103">Solicitar garantía</span>
+                                        <span class="v957_82">Productos Comprados</span>
+                                        <span class="v956_92">Motivo de la solicitud:</span>
+                                        <input id = "requestWarranty" name = "requestWarranty"  type = "submit" class="v802_98" value = "Solicitar garantia" ></input>
+                                        <select id = "selectProduct" name = "selectProduct" class = "selectProduct" aria-label="Default select example">
+                                        <option selected>Productos disponibles</option>
+                                        '''
+    #Id for list options
+    idOption = 1
+    #Append 
+    
+    for productId in recordProductsDicc:
+        product = recordProductsDicc[productId]
+        if product['warranty'] == 1:
+            docHTML+= '''<option id="'''
+            docHTML+=str(idOption)
+            docHTML+='''" value ="'''
+            docHTML+=str(product['productTitle'])
+            docHTML+='''  - '''
+            docHTML+=str(product['transactionDate'])
+            docHTML+='''" >'''
+            docHTML+=str(product['productTitle'])
+            docHTML+=''' - Precio final: '''
+            docHTML+=str(product['price'])
+            docHTML+=''' - Fecha de compra: '''
+            docHTML+=str(product['transactionDate'])
+            docHTML+='''</option>'''
+            idOption+=1
+    
+    docHTML+= '''
+                                </select>
+                                </form>
+                                    
+                                    <div class="v812_137"></div>
+                                </div>
+                                <div class="v812_138"></div>
+                            </div>
+                        </body>
+                    </html>
+            '''
+    return docHTML
 
 
 
@@ -121,7 +207,6 @@ def modifyingProducts():
     '''
     return docHTML
     
-
 
 #Function that creates the HTML for managing the orders
 
@@ -704,13 +789,15 @@ def deleteProducts():
 @app.route('/startGuarantee',methods=['GET','POST'])
 def startGuarantee():
 
-    return render_template('guarantee.html')
+    return starGuarantee()
 
 @app.route('/guarantee',methods=['GET','POST'])
 def guarantee():
-    productName = request.form['productName']
-    saleDate = request.form['saleDate']
+    completeInformation = request.form['selectProduct']
     detail = request.form['detail']
+    productName = completeInformation[0:completeInformation.find("-")-1]
+    saleDate = completeInformation[completeInformation.find("-")+1:]
+
     dbConnection = connectToDatabase()
     try:
         with dbConnection.cursor() as cursor:
@@ -719,38 +806,52 @@ def guarantee():
             queryResult = cursor.fetchall()
             resultCode = queryResult[0][0]
             if resultCode != 1:
-                return render_template('guarantee.html') + '''<div class="window-notice" id="window-notice" >
-                                <div class="content">
-                                    <div class="content-text">Su solicitud de garantía se ha registrado con éxito.
+                return  '''
+                            <head>
+                                <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet" />
+                                <link href="./static/css/warrantyStyle.css" rel="stylesheet" />
+                            </head>
+                            <body> 
+                                <div class="window-notice" id="window-notice" >
+                                    <div class="content">
+                                        <div class="content-text">Su solicitud de garantía se ha registrado con éxito.
+                                        </div>
+                                        <div class="content-buttons"><a href="#" id="close-button">Aceptar</a></div>
                                     </div>
-                                    <div class="content-buttons"><a href="#" id="close-button">Aceptar</a></div>
                                 </div>
-                            </div>
-                            <script>
-                                        let close_button = document.getElementById('close-button');
-                                            close_button.addEventListener("click", function(e) {
-                                            e.preventDefault();
-                                            document.getElementById("window-notice").style.display = "none";
-                                            window.location.href="/startGuarantee";
-                                        });
-                            </script>
+                                <script>
+                                            let close_button = document.getElementById('close-button');
+                                                close_button.addEventListener("click", function(e) {
+                                                e.preventDefault();
+                                                document.getElementById("window-notice").style.display = "none";
+                                                window.location.href="/startGuarantee";
+                                            });
+                                </script>
+                            </body>
                             ''' 
             else:
-                return render_template('guarantee.html') + '''<div class="window-notice" id="window-notice" >
-                                <div class="content">
-                                    <div class="content-text">Los datos suministrados para la solicitud de la garantía no son válidos.
+                return '''
+                            <head>
+                                <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet" />
+                                <link href="./static/css/warrantyStyle.css" rel="stylesheet" />
+                            </head>
+                            <body> 
+                                <div class="window-notice" id="window-notice" >
+                                    <div class="content">
+                                        <div class="content-text">Los datos suministrados para la solicitud de la garantía no son válidos.
+                                        </div>
+                                        <div class="content-buttons"><a href="#" id="close-button">Aceptar</a></div>
                                     </div>
-                                    <div class="content-buttons"><a href="#" id="close-button">Aceptar</a></div>
                                 </div>
-                            </div>
-                            <script>
-                                        let close_button = document.getElementById('close-button');
-                                            close_button.addEventListener("click", function(e) {
-                                            e.preventDefault();
-                                            document.getElementById("window-notice").style.display = "none";
-                                            
-                                        });
-                            </script>
+                                <script>
+                                            let close_button = document.getElementById('close-button');
+                                                close_button.addEventListener("click", function(e) {
+                                                e.preventDefault();
+                                                document.getElementById("window-notice").style.display = "none";
+                                                window.location.href="/startGuarantee";
+                                            });
+                                </script>
+                            </body>
                             '''
 
     except Exception as e:
@@ -976,61 +1077,7 @@ def updateOrderStatus():
                     ''' 
 
 
-def RecordProducts():
-    recordProductsInformation = []
-    dbConnection = connectToDatabase()
-    try:
-        with dbConnection.cursor() as cursor:
-            query = 'EXEC sp_ViewRecordProducts ?,?'
-            cursor.execute(query,(username,0))
-            recordProductsInformation = cursor.fetchall()
-            
-    except Exception as e:
-        return  "Error: "+ str(e) 
-    
-    finally:
-        dbConnection.close()
-        
-    recordProductsDicc = {}
-    productId = 1
-    for product in recordProductsInformation:
-        productTitle = product[0]
-        transactionDate = product[1]
-        price = product[2]
-        warranty = product[3]
-        recordProductsDicc[productId] = {'productTitle':productTitle,'transactionDate':transactionDate,'price':price,'warranty':warranty}
-        productId+=1
-    
-        
-    docHTML = '''Inicia
-            <select class="form-select" aria-label="Default select example">
-            <option selected>Productos disponibles</option>
-            '''
-    #Id for list options
-    idOption = 1
-    #Append 
-    
-    for productId in recordProductsDicc:
-        product = recordProductsDicc[productId]
-        if product['warranty'] == '1':
-            docHTML+= '''<option id="'''
-            docHTML+=str(idOption)
-            docHTML+='''" value ="'''
-            docHTML+=str(idOption)
-            docHTML+='''" >'''
-            docHTML+=str(product['productTitle'])
-            docHTML+='''<br> Precio final: '''
-            docHTML+=str(product['price'])
-            docHTML+='''<br> Fecha: '''
-            docHTML+=str(product['transactionDate'])
-            docHTML+='''</option>'''
-            idOption+=1
-    
-    docHTML+= '''
-                </select>
-                Termina
-    '''
-    return docHTML
+
 
 
 
