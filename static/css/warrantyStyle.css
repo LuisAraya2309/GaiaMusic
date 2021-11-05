@@ -1,0 +1,241 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  font-size: 14px;
+}
+.v802_82 {
+  width: 100%;
+  height: 937px;
+  background: rgba(216,216,216,1);
+  opacity: 1;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  overflow: hidden;
+}
+.v802_83 {
+  width: 100%;
+  height: 100%;
+  background: rgba(231,65,76,1);
+  opacity: 1;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  overflow: hidden;
+}
+.v812_107 {
+  width: 366px;
+  height: 52px;
+  background: rgba(216,216,216,1);
+  opacity: 1;
+  position: absolute;
+  top: 36px;
+  left: 1037px;
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+  overflow: hidden;
+}
+.v812_109 {
+  width: 56px;
+  height: 52px;
+  background: rgba(216,216,216,1);
+  opacity: 1;
+  position: absolute;
+  top: 36px;
+  left: 894px;
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+  overflow: hidden;
+}
+.v802_87 {
+  position: absolute;
+  width: 1300px;
+  height: 692px;
+  top: 205px;
+  left: 133px;
+  background: rgba(256,256,256,1);
+  opacity: 1;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  overflow: hidden;
+}
+.v812_108 {
+  width: 101px;
+  color: rgba(152,152,158,1);
+  position: absolute;
+  top: 47px;
+  left: 1095px;
+  font-family: Inter;
+  font-weight: Semi Bold;
+  font-size: 24px;
+  opacity: 1;
+  text-align: left;
+}
+.v812_110 {
+  width: 17px;
+  color: rgba(152,152,158,1);
+  position: absolute;
+  top: 47px;
+  left: 914px;
+  font-family: Inter;
+  font-weight: Semi Bold;
+  font-size: 24px;
+  opacity: 1;
+  text-align: left;
+}
+.v802_92 {
+  width: 512px;
+  color: rgba(255,255,255,1);
+  position: absolute;
+  top: 128px;
+  left: 549px;
+  font-family: Inter;
+  font-weight: Semi Bold;
+  font-size: 48px;
+  opacity: 1;
+  text-align: left;
+}
+.v802_98 {
+  width: 361px;
+  height: 88px;
+  background: rgba(48,131,254,1);
+  opacity: 1;
+  position: absolute;
+  top: 774px;
+  left: 1042px;
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+}
+
+.selectProduct {
+  width: 961px;
+  height: 82px;
+  background: rgba(216,216,216,1);
+  opacity: 1;
+  position: absolute;
+  top: 125px;
+  left: 75px;
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+  overflow: hidden;
+}
+.v956_91 {
+  width: 528px;
+  height: 190px;
+  background: rgba(216,216,216,1);
+  opacity: 1;
+  position: absolute;
+  top: 300px;
+  left: 75px;
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+  overflow: hidden;
+}
+.v802_103 {
+  width: 311px;
+  color: rgba(255,255,255,1);
+  position: absolute;
+  top: 795px;
+  left: 1082px;
+  font-family: Inter;
+  font-weight: Semi Bold;
+  font-size: 36px;
+  opacity: 1;
+  text-align: left;
+}
+.v802_104 {
+  width: 81px;
+  height: 88px;
+  background: url("Gaia.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  opacity: 1;
+  position: absolute;
+  top: 0px;
+  left: 19px;
+  overflow: hidden;
+}
+.v802_84 {
+  width: 271px;
+  color: rgba(0,0,0,1);
+  position: absolute;
+  top: 22px;
+  left: 100px;
+  font-family: Inter;
+  font-weight: Semi Bold;
+  font-size: 48px;
+  opacity: 1;
+  text-align: left;
+}
+.v957_82 {
+  width: 735px;
+  color: rgba(0,0,0,1);
+  position: absolute;
+  top: 50px;
+  left: 75px;
+  font-family: Inter;
+  font-weight: Semi Bold;
+  font-size: 48px;
+  opacity: 1;
+  text-align: left;
+}
+.v956_92 {
+  width: 425px;
+  color: rgba(0,0,0,1);
+  position: absolute;
+  top: 250px;
+  left: 75px;
+  font-family: Inter;
+  font-weight: Semi Bold;
+  font-size: 36px;
+  opacity: 1;
+  text-align: left;
+}
+.v812_137 {
+  width: 50px;
+  height: 49px;
+  background: url("carritoCompras.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  opacity: 1;
+  position: absolute;
+  top: 36px;
+  left: 823px;
+  overflow: hidden;
+}
+.v812_138 {
+  width: 36px;
+  height: 33px;
+  background: url("lupa.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  opacity: 1;
+  position: absolute;
+  top: 43px;
+  left: 998px;
+  overflow: hidden;
+}
+
+.form1{
+  position: absolute;
+  width: 1300px;
+  height: 692px;
+  top: 205px;
+  left: 133px;
+}
