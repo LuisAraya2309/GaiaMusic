@@ -11,13 +11,40 @@ username =""
 instrumentName = ""
 
 
+
+
+
+
 #Function that creates the HTML for modifying the products
 def modifyingProducts():
+    productsInformation = []
+    dbConnection = connectToDatabase()
+    try:
+        with dbConnection.cursor() as cursor:
+            query = 'EXEC sp_ViewProducts ?'
+            cursor.execute(query,(0))
+            productsInformation = cursor.fetchall()
+            
+    except Exception as e:
+        return  "Error: "+ str(e) 
+    
+    finally:
+        dbConnection.close()
+        
+    productsDicc = {}
+    productId = 1
+    for product in productsInformation:
+        productTitle = product[0]
+        productsDicc[productId] = {'productTitle':productTitle}
+        productId+=1
+    
+    
+        
     docHTML = '''<!DOCTYPE html>
                 <html>
                     <head>
                         <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet" />
-                        <link href="{{ url_for('static',filename='css/InventarioStyle.css') }}" rel="stylesheet" />
+                        <link href="./static/css/InventarioStyle.css" rel="stylesheet" />
                         <title>Modificar Inventario</title>
                     </head>
                     <body>
@@ -30,7 +57,6 @@ def modifyingProducts():
                                     <div class = "RectanguloGrande"> </div>
                                     <span class="v812_119">Nuevo nombre </span>
                                     <span class="v812_120">Modificar Inventario</span>
-                                    <span class="v850_90">Eliminar producto</span>
                                     <span class="v812_121">Información</span>
                                     <span class="v850_96">Categoría</span>
                                     <span class="v850_88">Cantidad en Inventario</span>
@@ -52,23 +78,49 @@ def modifyingProducts():
                                 <form action="/deleteProducts" method="post" class = "Form2">
                                     <div class="RectanguloPequeño"></div>
                                     <span class="v850_91">Nombre del producto a eliminar</span>
-                                    <input class="v850_92" id = "productToEliminate" name = "productToEliminate" ></input>
+                    
                                     
-                                    <span class="v850_94">Eliminar producto</span>'''
+                                    <span class="v850_94">Eliminar producto</span>
+                                    <input class = "EliminarProducto" type = "submit" value = "Eliminar producto"></input>
+                                    <select id = "productName" name = "productName" class="v850_92" aria-label="Default select example">
+                                    <option selected>Productos disponibles</option>
+                                    '''
+    #Id for list options
+    idOption = 1
+    #Append 
     
+    for productId in productsDicc:
+        product = productsDicc[productId]
+        docHTML+= '''<option id="'''
+        docHTML+=str(idOption)
+        docHTML+='''" value ="'''
+        docHTML+=str(product['productTitle'])
+        docHTML+='''" >'''
+        docHTML+=str(product['productTitle'])
+        docHTML+='''</option>'''
+        idOption+=1
+    
+    docHTML+= '''
+                </select>
+                </form>
 
-    dbConnection = connectToDatabase()
-    try:
-        with dbConnection.cursor() as cursor:
-            query = 'EXEC sp_ViewOrders ?,?'
-            cursor.execute(query,(username,0))
-            queryResult = cursor.fetchall()
+                <div class="v812_123"></div>
+                <div class="v850_93"></div>
+                
+                <div class="v812_129"></div>
+                <span class="v812_130">Gaia Music </span>
+                <div class="v813_85"></div>
             
-    except Exception as e:
-        return  "Error: "+ str(e) 
+        
+            </div>
+            <div class="v812_136"></div>
+            
+        </div>
+    </body>
+    </html>
+    '''
+    return docHTML
     
-    finally:
-        dbConnection.close()
 
 
 #Function that creates the HTML for managing the orders
@@ -449,7 +501,7 @@ def validateUser():
                 elif userType == 3:
                     return manageOrders()
                 else:
-                    return render_template('ModifInventario.html')
+                    return modifyingProducts()
             else:
                 return render_template('login.html') + '''<div class="window-notice" id="window-notice" >
                                 <div class="content">
@@ -597,7 +649,7 @@ def modifyProducts():
 
 @app.route('/deleteProducts',methods=['GET','POST'])
 def deleteProducts():
-    productName = request.form["productToEliminate"]
+    productName = request.form["productName"]
     dbConnection = connectToDatabase()
     
     try:
@@ -891,6 +943,63 @@ def updateOrderStatus():
 
                     </html> 
                     ''' 
+
+
+def RecordProducts():
+    recordProductsInformation = []
+    dbConnection = connectToDatabase()
+    try:
+        with dbConnection.cursor() as cursor:
+            query = 'EXEC sp_ViewRecordProducts ?,?'
+            cursor.execute(query,(username,0))
+            recordProductsInformation = cursor.fetchall()
+            
+    except Exception as e:
+        return  "Error: "+ str(e) 
+    
+    finally:
+        dbConnection.close()
+        
+    recordProductsDicc = {}
+    productId = 1
+    for product in recordProductsInformation:
+        productTitle = product[0]
+        transactionDate = product[1]
+        price = product[2]
+        warranty = product[3]
+        recordProductsDicc[productId] = {'productTitle':productTitle,'transactionDate':transactionDate,'price':price,'warranty':warranty}
+        productId+=1
+    
+        
+    docHTML = '''Inicia
+            <select class="form-select" aria-label="Default select example">
+            <option selected>Productos disponibles</option>
+            '''
+    #Id for list options
+    idOption = 1
+    #Append 
+    
+    for productId in recordProductsDicc:
+        product = recordProductsDicc[productId]
+        if product['warranty'] == '1':
+            docHTML+= '''<option id="'''
+            docHTML+=str(idOption)
+            docHTML+='''" value ="'''
+            docHTML+=str(idOption)
+            docHTML+='''" >'''
+            docHTML+=str(product['productTitle'])
+            docHTML+='''<br> Precio final: '''
+            docHTML+=str(product['price'])
+            docHTML+='''<br> Fecha: '''
+            docHTML+=str(product['transactionDate'])
+            docHTML+='''</option>'''
+            idOption+=1
+    
+    docHTML+= '''
+                </select>
+                Termina
+    '''
+    return docHTML
 
 
 
