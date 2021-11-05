@@ -658,10 +658,41 @@ def deleteProducts():
             cursor.execute(query,(productName,username,0))
             queryResult = cursor.fetchall()
             resultCode = queryResult[0][0]
+
             if resultCode != 1:
-                return render_template('login.html')
+                return render_template('ModifInventario.html') + '''<div class="window-notice" id="window-notice" >
+                                <div class="content">
+                                    <div class="content-text">El instrumento se ha eliminado con éxito.
+                                    </div>
+                                    <div class="content-buttons"><a href="#" id="close-button">Aceptar</a></div>
+                                </div>
+                            </div>
+                            <script>
+                                        let close_button = document.getElementById('close-button');
+                                            close_button.addEventListener("click", function(e) {
+                                            e.preventDefault();
+                                            document.getElementById("window-notice").style.display = "none";
+                                            
+                                        });
+                            </script>
+                            '''
             else:
-                return "<script>alert('No existe el articulo a eliminar.'); </script> " 
+                return render_template('ModifInventario.html') + '''<div class="window-notice" id="window-notice" >
+                                <div class="content">
+                                    <div class="content-text">El instrumento no se ha podido eliminar.
+                                    </div>
+                                    <div class="content-buttons"><a href="#" id="close-button">Aceptar</a></div>
+                                </div>
+                            </div>
+                            <script>
+                                        let close_button = document.getElementById('close-button');
+                                            close_button.addEventListener("click", function(e) {
+                                            e.preventDefault();
+                                            document.getElementById("window-notice").style.display = "none";
+                                            
+                                        });
+                            </script>
+                            '''
 
     except Exception as e:
         print(e)
