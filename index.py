@@ -797,7 +797,6 @@ def guarantee():
     detail = request.form['detail']
     productName = completeInformation[0:completeInformation.find("-")-1]
     saleDate = completeInformation[completeInformation.find("-")+1:]
-
     dbConnection = connectToDatabase()
     try:
         with dbConnection.cursor() as cursor:
@@ -838,7 +837,7 @@ def guarantee():
                             <body> 
                                 <div class="window-notice" id="window-notice" >
                                     <div class="content">
-                                        <div class="content-text">Los datos suministrados para la solicitud de la garantía no son válidos.
+                                        <div class="content-text">La garantía del producto seleccionado está obsoleta.
                                         </div>
                                         <div class="content-buttons"><a href="#" id="close-button">Aceptar</a></div>
                                     </div>

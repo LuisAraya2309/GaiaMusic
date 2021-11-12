@@ -85,6 +85,7 @@ EXECUTE sp_UpdateOrderStatus 'Doing' , '5 pianos , 1 guitarra, 2 flautas',0;
 
 EXECUTE sp_ViewOrders 'DonLuis',0 
 
+/*
 DBCC CHECKIDENT (Instruments, RESEED, 1)
 DBCC CHECKIDENT (Guarantees, RESEED, 1)
 DBCC CHECKIDENT (InstrumentTypes, RESEED, 1)
@@ -94,3 +95,4 @@ DBCC CHECKIDENT (Transactions, RESEED, 1)
 DBCC CHECKIDENT (TransactionTypes, RESEED, 1)
 DBCC CHECKIDENT (Users, RESEED, 1)
 DBCC CHECKIDENT (UserTypes, RESEED, 1)
+*/
