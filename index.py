@@ -102,6 +102,8 @@ def starGuarantee():
 
 
 #Function that creates the HTML for modifying the products
+
+@app.route('/returnmodifyingProducts',methods=['GET']) 
 def modifyingProducts():
     productsInformation = []
     dbConnection = connectToDatabase()
@@ -460,6 +462,8 @@ def manageOrders():
 
 
 #Function that creates the HTML for visualizing all the products
+
+@app.route('/returnViewProducts',methods=['GET']) 
 def viewProducts():
     queryResult =[]
     dbConnection = connectToDatabase()
@@ -627,7 +631,7 @@ def signUp():
     try:
         with dbConnection.cursor() as cursor:
             query = 'EXEC sp_SignUp ? , ? , ? , ? , ? , ?'
-            cursor.execute(query,(name,address,user,password,'Customer',0))
+            cursor.execute(query,(name,address,user,password,'Cliente',0))
             queryResult = cursor.fetchall()
             validUser = queryResult[0][0]
             if validUser != 1:
@@ -745,7 +749,7 @@ def deleteProducts():
             resultCode = queryResult[0][0]
 
             if resultCode != 1:
-                return render_template('ModifInventario.html') + '''<div class="window-notice" id="window-notice" >
+                return render_template("ModifInventario.html") + '''<div class="window-notice" id="window-notice" >
                                 <div class="content">
                                     <div class="content-text">El instrumento se ha eliminado con éxito.
                                     </div>
@@ -762,7 +766,7 @@ def deleteProducts():
                             </script>
                             '''
             else:
-                return render_template('ModifInventario.html') + '''<div class="window-notice" id="window-notice" >
+                return render_template("ModifInventario.html") + '''<div class="window-notice" id="window-notice" >
                                 <div class="content">
                                     <div class="content-text">El instrumento no se ha podido eliminar.
                                     </div>
@@ -823,7 +827,7 @@ def guarantee():
                                                 close_button.addEventListener("click", function(e) {
                                                 e.preventDefault();
                                                 document.getElementById("window-notice").style.display = "none";
-                                                window.location.href="/startGuarantee";
+                                                window.location.href="/returnViewProducts";
                                             });
                                 </script>
                             </body>
@@ -847,7 +851,7 @@ def guarantee():
                                                 close_button.addEventListener("click", function(e) {
                                                 e.preventDefault();
                                                 document.getElementById("window-notice").style.display = "none";
-                                                window.location.href="/startGuarantee";
+                                                window.location.href="/returnViewProducts";
                                             });
                                 </script>
                             </body>
@@ -993,7 +997,7 @@ def finishBuy():
                                                     close_button.addEventListener("click", function(e) {
                                                     e.preventDefault();
                                                     document.getElementById("window-notice").style.display = "none";
-                                                    window.location.href="/buyProduct";
+                                                    window.location.href="/returnViewProducts";
                                                 });
                                     </script>
                                 </body>
@@ -1013,7 +1017,7 @@ def finishBuy():
                                                 close_button.addEventListener("click", function(e) {
                                                 e.preventDefault();
                                                 document.getElementById("window-notice").style.display = "none";
-                                                window.location.href="/buyProduct";
+                                                window.location.href="/returnViewProducts";
                                             });
                                 </script>
                                 ''' 
