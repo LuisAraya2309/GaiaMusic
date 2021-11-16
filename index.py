@@ -103,7 +103,7 @@ def starGuarantee():
 
 #Function that creates the HTML for modifying the products
 
-@app.route('/returnmodifyingProducts',methods=['GET']) 
+@app.route('/returnModifyingProducts',methods=['GET']) 
 def modifyingProducts():
     productsInformation = []
     dbConnection = connectToDatabase()
@@ -695,7 +695,15 @@ def modifyProducts():
             queryResult = cursor.fetchall()
             resultCode = queryResult[0][0]
             if resultCode != 1:
-                return render_template('ModifInventario.html') + '''<div class="window-notice" id="window-notice" >
+                return  '''
+                        <!DOCTYPE html>
+                        <html>
+                            <head>
+                                <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet" />
+                                <link href="./static/css/InventarioStyle.css" rel="stylesheet" />
+                                <title>Modificar Inventario</title>
+                            </head>
+                            <div class="window-notice" id="window-notice" >
                                 <div class="content">
                                     <div class="content-text">El instrumento se ha modificado con éxito.
                                     </div>
@@ -707,12 +715,20 @@ def modifyProducts():
                                             close_button.addEventListener("click", function(e) {
                                             e.preventDefault();
                                             document.getElementById("window-notice").style.display = "none";
-                                            
+                                            window.location.href="/returnModifyingProducts";
                                         });
                             </script>
                             '''
             else:
-                return render_template('ModifInventario.html') + '''<div class="window-notice" id="window-notice" >
+                return  '''
+                        <!DOCTYPE html>
+                        <html>
+                            <head>
+                                <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet" />
+                                <link href="./static/css/InventarioStyle.css" rel="stylesheet" />
+                                <title>Modificar Inventario</title>
+                            </head>
+                            <div class="window-notice" id="window-notice" >
                                 <div class="content">
                                     <div class="content-text">El instrumento a modificar no existe.
                                     </div>
@@ -724,7 +740,7 @@ def modifyProducts():
                                             close_button.addEventListener("click", function(e) {
                                             e.preventDefault();
                                             document.getElementById("window-notice").style.display = "none";
-                                            
+                                            window.location.href="/returnModifyingProducts";
                                         });
                             </script>
                             '''
@@ -749,7 +765,16 @@ def deleteProducts():
             resultCode = queryResult[0][0]
 
             if resultCode != 1:
-                return render_template("ModifInventario.html") + '''<div class="window-notice" id="window-notice" >
+                return '''
+                        <!DOCTYPE html>
+                        <html>
+                            <head>
+                                <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet" />
+                                <link href="./static/css/InventarioStyle.css" rel="stylesheet" />
+                                <title>Modificar Inventario</title>
+                            </head>
+                            
+                            <div class="window-notice" id="window-notice" >
                                 <div class="content">
                                     <div class="content-text">El instrumento se ha eliminado con éxito.
                                     </div>
@@ -761,12 +786,21 @@ def deleteProducts():
                                             close_button.addEventListener("click", function(e) {
                                             e.preventDefault();
                                             document.getElementById("window-notice").style.display = "none";
-                                            
+                                            window.location.href="/returnModifyingProducts";
                                         });
                             </script>
                             '''
             else:
-                return render_template("ModifInventario.html") + '''<div class="window-notice" id="window-notice" >
+                return '''
+                        <!DOCTYPE html>
+                        <html>
+                            <head>
+                                <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet" />
+                                <link href="./static/css/InventarioStyle.css" rel="stylesheet" />
+                                <title>Modificar Inventario</title>
+                            </head>
+                            
+                            <div class="window-notice" id="window-notice" >
                                 <div class="content">
                                     <div class="content-text">El instrumento no se ha podido eliminar.
                                     </div>
@@ -778,6 +812,7 @@ def deleteProducts():
                                             close_button.addEventListener("click", function(e) {
                                             e.preventDefault();
                                             document.getElementById("window-notice").style.display = "none";
+                                            window.location.href="/returnModifyingProducts";
                                             
                                         });
                             </script>
